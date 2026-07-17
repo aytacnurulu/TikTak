@@ -12,15 +12,18 @@ import { StatsCard } from "../components/StatsCard";
 import { useOrders } from "../hooks/useOrders";
 import { useOrdersStats } from "../hooks/useOrdersStats";
 import type { Order } from "../orders.type";
+import type { TagProps } from "antd";
 
 const STATUS_CONFIG: Record<Order["status"], { label: string; color: string }> =
   {
-    pending: { label: "Gözləyir", color: "orange" },
-    confirmed: { label: "Təsdiqləndi", color: "blue" },
-    preparing: { label: "Hazırlanır", color: "purple" },
-    delivered: { label: "Çatdırıldı", color: "green" },
-    cancelled: { label: "Ləğv edildi", color: "red" },
+    PENDING: { label: "Gözləyir", color: "orange" },
+    CONFIRMED: { label: "Təsdiqləndi", color: "blue" },
+    PREPARING: { label: "Hazırlanır", color: "purple" },
+    DELIVERED: { label: "Çatdırıldı", color: "green" },
+    CANCELLED: { label: "Ləğv edildi", color: "red" },
   };
+
+const DEFAULT_STATUS_CONFIG = { label: "Naməlum", color: "default" };
 
 export default function OrdersPage() {
   const {
@@ -48,7 +51,7 @@ export default function OrdersPage() {
       key: "subtotal",
       render: (_: unknown, record: Order) => (
         <span>
-          {record.subtotal.toFixed(2)} ₼
+          {record.orderNo} ₼
           {record.isFreeShipping && (
             <span className="text-green-500 text-xs ml-1">· Pulsuz</span>
           )}
@@ -59,11 +62,11 @@ export default function OrdersPage() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status: Order["status"]) => (
-        <Tag color={STATUS_CONFIG[status].color}>
-          {STATUS_CONFIG[status].label}
-        </Tag>
-      ),
+      // render:
+      render: (status: Order["status"]) => {
+        const config = STATUS_CONFIG[status] ?? DEFAULT_STATUS_CONFIG;
+        return <Tag color={config.color}>{config.label}</Tag>;
+      },
     },
     {
       title: "Əməliyyat",
