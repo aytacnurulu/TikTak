@@ -1,11 +1,12 @@
 import { useState } from "react";
 import AdminLayout from "../../../shared/components/AdminLayout";
-import DataTable, { TableActions } from "../../../shared/components/DataTable";
+import { DataTable } from "../../../shared/components/DataTable";
+import type { TableActions } from "../../../shared/components/DataTable";
 import AppButton from "../../../shared/components/AppButton";
 import { AppInput, AppTextArea } from "../../../shared/components/AppInput";
 import ConfirmModal from "../../../shared/components/ConfirmModal";
 import FormModal from "../../../shared/components/FormModal";
-import { SidebarItem } from "../../../shared/components/Sidebar";
+import type { SidebarItem } from "../../../shared/components/SideBar";
 
 const ADMIN_NAV: SidebarItem[] = [
   { key: "/campaigns", label: "Kampaniyalar" },
