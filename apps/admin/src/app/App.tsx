@@ -8,6 +8,7 @@ import OrdersPage from "../features/orders/pages/OrdersPage";
 import ProductsPage from "../features/products/pages/ProductsPage";
 import UsersPage from "../features/users/pages/UsersPage";
 import ProtectedRoute from "../features/auth/components/ProtectedRoute.tsx";
+import AdminLayout from "../shared/components/AdminLayout/AdminLayout";
 
 export default function App() {
   return (
@@ -15,13 +16,15 @@ export default function App() {
       <Route path="/login" element={<LoginPage />} />
 
       <Route element={<ProtectedRoute />}>
-        <Route path="/" element={<Navigate to="/dashboard" replace />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/categories" element={<CategoriesPage />} />
-        <Route path="/campaigns" element={<CampaignsPage />} />
-        <Route path="/orders" element={<OrdersPage />} />
-        <Route path="/products" element={<ProductsPage />} />
-        <Route path="/users" element={<UsersPage />} />
+        <Route element={<AdminLayout />}>
+          <Route path="/" element={<Navigate to="/dashboard" replace />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/categories" element={<CategoriesPage />} />
+          <Route path="/campaigns" element={<CampaignsPage />} />
+          <Route path="/orders" element={<OrdersPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/users" element={<UsersPage />} />
+        </Route>
       </Route>
     </Routes>
   );

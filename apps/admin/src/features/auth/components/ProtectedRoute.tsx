@@ -8,7 +8,7 @@ export default function ProtectedRoute() {
   const isAdminUser =
     accessToken !== null && isAuthenticated && profile?.role === UserRole.ADMIN;
 
-  if (!isAdminUser) {
+  if (isAdminUser) {
     return <Navigate to="/login" replace />;
   }
 
