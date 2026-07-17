@@ -1,22 +1,39 @@
 import { Table } from "antd";
 import type { TableProps } from "antd";
-// Bütün səhifələrdə (Kampaniyalar, Kateqoriyalar, Məhsullar, İstifadəçilər,
-// Sifarişlər) eyni skelet təkrarlanır: sıra nömrəsi, sağda əməliyyat sütunu,
-// aşağıda "1-5 / N nəticə" formatlı pagination. Fərqli olan yalnız `columns`
-// və `dataSource`-dur — onları hər səhifə özü verir.
-export function DataTable<T extends object>(props: TableProps<T>) {
+import { Pagination } from "./Pagination/Pagination";
+
+interface DataTableProps<T> extends Omit<TableProps<T>, "pagination"> {
+  page: number;
+  pageSize: number;
+  total: number;
+  onPageChange: (page: number) => void;
+  onPageSizeChange: (size: number) => void;
+}
+
+export function DataTable<T extends object>({
+  page,
+  pageSize,
+  total,
+  onPageChange,
+  onPageSizeChange,
+  ...props
+}: DataTableProps<T>) {
   return (
-    <Table<T>
-      rowKey={(record: any) => record.id ?? record.key}
-      pagination={{
-        pageSize: 5,
-        showTotal: (total, range) =>
-          `${range[0]}-${range[1]} / ${total} nəticə`,
-        ...props.pagination,
-      }}
-      className="[&_.ant-table]:!rounded-xl"
-      {...props}
-    />
+    <div>
+      <Table<T>
+        rowKey={(record: any) => record.id ?? record.key}
+        pagination={false}
+        className="[&_.ant-table]:!rounded-xl"
+        {...props}
+      />
+      <Pagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onPageChange={onPageChange}
+        onPageSizeChange={onPageSizeChange}
+      />
+    </div>
   );
 }
 
@@ -26,10 +43,6 @@ interface TableActionsProps {
   onDelete?: () => void;
 }
 
-// Skrinşotlarda "düzəlt / sil" (Kampaniyalar, Kateqoriyalar, Məhsullar) və
-// "Göstər" (İstifadəçilər, Sifarişlər) fərqli mətnlərlə görünür, amma
-// məntiq eynidir — ona görə tək komponentdə, lazım olan action-ları
-// prop kimi ötürürük.
 export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
   return (
     <div className="flex gap-3">
