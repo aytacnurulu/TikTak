@@ -1,16 +1,17 @@
-import { Table, TableProps } from 'antd';
-
+import { Table } from "antd";
+import type { TableProps } from "antd";
 // Bütün səhifələrdə (Kampaniyalar, Kateqoriyalar, Məhsullar, İstifadəçilər,
 // Sifarişlər) eyni skelet təkrarlanır: sıra nömrəsi, sağda əməliyyat sütunu,
 // aşağıda "1-5 / N nəticə" formatlı pagination. Fərqli olan yalnız `columns`
 // və `dataSource`-dur — onları hər səhifə özü verir.
-export default function DataTable<T extends object>(props: TableProps<T>) {
+export function DataTable<T extends object>(props: TableProps<T>) {
   return (
     <Table<T>
       rowKey={(record: any) => record.id ?? record.key}
       pagination={{
         pageSize: 5,
-        showTotal: (total, range) => `${range[0]}-${range[1]} / ${total} nəticə`,
+        showTotal: (total, range) =>
+          `${range[0]}-${range[1]} / ${total} nəticə`,
         ...props.pagination,
       }}
       className="[&_.ant-table]:!rounded-xl"

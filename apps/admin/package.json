@@ -10,6 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@tanstack/react-query": "^5.59.0",
     "@tiktak/api-client": "*",
     "@tiktak/constants": "*",
@@ -20,6 +21,7 @@
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
     "react-router-dom": "^6.26.0",
+    "tailwindcss": "^4.3.3",
     "zustand": "^5.0.0"
   },
   "devDependencies": {

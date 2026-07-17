@@ -15,7 +15,7 @@ interface SidebarProps {
 
 // Sidebar tamamilə data-driven işləyir — hər layihə/panel öz linklərini
 // items prop-u ilə verir, komponentin özü heç nə hardcode etmir.
-export default function Sidebar({
+export function Sidebar({
   items,
   logo = "TIK TAK ADMİN",
   onLogout,

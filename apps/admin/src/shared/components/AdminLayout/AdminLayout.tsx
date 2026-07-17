@@ -1,6 +1,6 @@
 import { Layout } from "antd";
-import Sidebar, { SidebarItem } from "../SideBar";
-
+import { Sidebar } from "../SideBar";
+import type { SidebarItem } from "../SideBar";
 const { Sider, Header, Content } = Layout;
 
 interface AdminLayoutProps {
