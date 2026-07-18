@@ -10,40 +10,12 @@ import {
 } from "@ant-design/icons";
 import { DataTable, TableActions } from "../../../shared/components/DataTable";
 import { StatsCard } from "../components/StatsCard";
-<<<<<<< Updated upstream
-import { useOrders } from "../hooks/useOrders";
-import { useOrdersStats } from "../hooks/useOrdersStats";
-import type { Order } from "../orders.type";
-
-const STATUS_CONFIG: Record<Order["status"], { label: string; color: string }> =
-  {
-    pending: { label: "Gözləyir", color: "orange" },
-    confirmed: { label: "Təsdiqləndi", color: "blue" },
-    preparing: { label: "Hazırlanır", color: "purple" },
-    delivered: { label: "Çatdırıldı", color: "green" },
-    cancelled: { label: "Ləğv edildi", color: "red" },
-  };
-
-export default function OrdersPage() {
-  const {
-    orders,
-    total,
-    isLoading,
-    page,
-    pageSize,
-    onPageChange,
-    onPageSizeChange,
-  } = useOrders();
-  const { data: stats } = useOrdersStats();
-=======
 import { OrderDetailModal } from "../components/OrderDetailModal";
 import { useGetOrders } from "../hooks/useGetOrders";
 import { useGetOrdersStats } from "../hooks/useGetOrdersStats";
 import { usePutOrderStatus } from "../hooks/usePutOrderStatus";
-import type { Order, OrderStatus } from "../orders.type";
 import { StatusTag, type StatusTagProps } from "../components/StatusTag";
-
-
+import type { Order, OrderStatus } from "../orders.type";
 
 const STATUS_CONFIG: Record<OrderStatus, { label: string; color: string }> = {
   PENDING: { label: "Gözləyir", color: "orange" },
@@ -61,7 +33,6 @@ function formatCurrency(value: number | string | null | undefined) {
   if (!Number.isFinite(numericValue)) return "—";
   return `${numericValue.toFixed(2)} ₼`;
 }
->>>>>>> Stashed changes
 
 function getStatusConfig(status: string | undefined) {
   if (!status) return DEFAULT_STATUS_CONFIG;
@@ -79,7 +50,7 @@ function OrdersPage() {
   const { mutate: updateStatus, isPending: isUpdatingStatus } =
     usePutOrderStatus();
 
-  const orders: Order[] = data?.data ?? [];
+  const orders: Order[] = useMemo(() => data?.data ?? [], [data]);
 
   const paginatedOrders = useMemo(() => {
     const start = (page - 1) * pageSize;
@@ -136,15 +107,6 @@ function OrdersPage() {
       ),
     },
     {
-<<<<<<< Updated upstream
-      title: "Subtotal/Çatdırılma",
-      key: "subtotal",
-      render: (_: unknown, record: Order) => (
-        <span>
-          {record.subtotal.toFixed(2)} ₼
-          {record.isFreeShipping && (
-            <span className="text-green-500 text-xs ml-1">· Pulsuz</span>
-=======
       title: "Məhsul sayı",
       key: "itemsCount",
       width: 110,
@@ -168,7 +130,6 @@ function OrdersPage() {
             <span className="text-gray-400 text-xs">
               Çatdırılma əlavə olunur
             </span>
->>>>>>> Stashed changes
           )}
         </div>
       ),
@@ -177,13 +138,6 @@ function OrdersPage() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-<<<<<<< Updated upstream
-      render: (status: Order["status"]) => (
-        <Tag color={STATUS_CONFIG[status].color}>
-          {STATUS_CONFIG[status].label}
-        </Tag>
-      ),
-=======
       width: 140,
       filters: Object.entries(STATUS_CONFIG).map(([value, cfg]) => ({
         text: cfg.label,
@@ -199,7 +153,6 @@ function OrdersPage() {
           />
         );
       },
->>>>>>> Stashed changes
     },
     {
       title: "Əməliyyat",
