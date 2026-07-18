@@ -17,8 +17,7 @@ export default function App() {
 
       <Route element={<ProtectedRoute />}>
         <Route element={<AdminLayout />}>
-          <Route path="/" element={<Navigate to="/dashboard" replace />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Navigate to="/orders" replace />} />
           <Route path="/categories" element={<CategoriesPage />} />
           <Route path="/campaigns" element={<CampaignsPage />} />
           <Route path="/orders" element={<OrdersPage />} />
