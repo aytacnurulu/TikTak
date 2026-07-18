@@ -1,5 +1,6 @@
 import { Table } from "antd";
 import type { TableProps } from "antd";
+import { FiEye, FiEdit2, FiTrash2 } from "react-icons/fi";
 import { Pagination } from "./Pagination/Pagination";
 
 interface DataTableProps<T> extends Omit<TableProps<T>, "pagination"> {
@@ -43,23 +44,40 @@ interface TableActionsProps {
   onDelete?: () => void;
 }
 
+// Skrinşotdakı "✏ Düzəlt" / "🗑 Sil" mətn-linklərini react-icons ilə
+// əvəz edir. İstəsəniz mətni saxlayıb yanına ikon da qoya bilərsiniz —
+// aşağıda hər ikisi göstərilib, lazımsız olanı silin.
 export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
   return (
-    <div className="flex gap-3">
+    <div className="flex gap-4 items-center">
       {onView && (
-        <a onClick={onView} className="text-gray-600">
-          Göstər
-        </a>
+        <button
+          onClick={onView}
+          className="flex items-center gap-1 text-gray-600 hover:text-gray-800"
+          title="Göstər"
+        >
+          <FiEye size={16} />
+        </button>
       )}
       {onEdit && (
-        <a onClick={onEdit} className="text-gray-700">
-          Düzəlt
-        </a>
+        <button
+          onClick={onEdit}
+          className="flex items-center gap-1 text-blue-500 hover:text-blue-700"
+          title="Düzəlt"
+        >
+          <FiEdit2 size={16} />
+          <span className="text-sm">Düzəlt</span>
+        </button>
       )}
       {onDelete && (
-        <a onClick={onDelete} className="text-red-500">
-          Sil
-        </a>
+        <button
+          onClick={onDelete}
+          className="flex items-center gap-1 text-red-500 hover:text-red-700"
+          title="Sil"
+        >
+          <FiTrash2 size={16} />
+          <span className="text-sm">Sil</span>
+        </button>
       )}
     </div>
   );
