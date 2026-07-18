@@ -2,37 +2,46 @@
 
 // ---------- Enums ----------
 
-export enum UserRole {
-  ADMIN = "ADMIN",
-  COMMERCE = "COMMERCE",
-}
+export const UserRole = {
+  ADMIN: "ADMIN",
+  COMMERCE: "COMMERCE",
+} as const;
 
-export enum ProductMeasure {
-  KG = "kg",
-  GR = "gr",
-  LITRE = "litre",
-  ML = "ml",
-  METER = "meter",
-  CM = "cm",
-  MM = "mm",
-  PIECE = "piece",
-  PACKET = "packet",
-  BOX = "box",
-}
+export type UserRole = (typeof UserRole)[keyof typeof UserRole];
 
-export enum OrderStatus {
-  PENDING = "PENDING",
-  CONFIRMED = "CONFIRMED",
-  PREPARING = "PREPARING",
-  READY = "READY",
-  DELIVERED = "DELIVERED",
-  CANCELLED = "CANCELLED",
-}
+export const ProductMeasure = {
+  KG: "kg",
+  GR: "gr",
+  LITRE: "litre",
+  ML: "ml",
+  METER: "meter",
+  CM: "cm",
+  MM: "mm",
+  PIECE: "piece",
+  PACKET: "packet",
+  BOX: "box",
+} as const;
 
-export enum PaymentMethod {
-  CASH = "CASH",
-  CARD = "CARD",
-}
+export type ProductMeasure =
+  (typeof ProductMeasure)[keyof typeof ProductMeasure];
+
+export const OrderStatus = {
+  PENDING: "PENDING",
+  CONFIRMED: "CONFIRMED",
+  PREPARING: "PREPARING",
+  READY: "READY",
+  DELIVERED: "DELIVERED",
+  CANCELLED: "CANCELLED",
+} as const;
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+
+export const PaymentMethod = {
+  CASH: "CASH",
+  CARD: "CARD",
+} as const;
+
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod];
 
 // ---------- Common ----------
 

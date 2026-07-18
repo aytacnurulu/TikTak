@@ -32,6 +32,7 @@ export const API = {
     ORDERS: {
       LIST: "/api/tiktak/orders/admin",
       STATS: "/api/tiktak/orders/admin/stats",
+      UPDATE_STATUS: (id: number) => `/api/tiktak/orders/admin/${id}/status`,
     },
   },
 
