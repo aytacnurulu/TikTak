@@ -1,1 +1,1 @@
-export { default } from './ProductFormModal';
+export { ProductFormModal } from "./ProductFormModal";

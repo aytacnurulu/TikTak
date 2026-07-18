@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { getOrders } from "../api/orders.service";
+import type { OrderListQuery } from "../../../shared/types/admin.types";
 
-export function useGetOrders() {
+export function useGetOrders(query: OrderListQuery = {}) {
   return useQuery({
-    queryKey: ["orders"],
-    queryFn: getOrders,
+    queryKey: ["orders", query],
+    queryFn: () => getOrders(query),
   });
 }

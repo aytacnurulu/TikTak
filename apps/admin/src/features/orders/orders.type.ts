@@ -50,6 +50,12 @@ export interface Order {
   items: OrderItem[];
 }
 
+export interface OrdersQuery {
+  page?: number;
+  limit?: number;
+  status?: OrderStatus;
+}
+
 export interface OrdersListResponse {
   message: string;
   data: Order[];

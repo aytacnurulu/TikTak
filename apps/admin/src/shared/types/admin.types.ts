@@ -137,25 +137,22 @@ export type CategoryListResponse = ApiResponse<Category[]>;
 export type CategoryResponse = ApiResponse<Category>;
 
 // ---------- Products ----------
-
+export interface Product {
+  id: number;
+  title: string;          // "name" yox — backend "title" qaytarır
+  description: string;
+  img_url: string;
+  category: Category;
+  type: ProductMeasure;   // "string" yox — enum
+  price: string;          // backend string qaytarır (Create/Update request kimi)
+  created_at: string;
+}
 export interface ProductCategory {
   id: number;
   name: string;
   img_url?: string;
   description?: string;
   created_at?: string;
-}
-
-export interface Product {
-  id: number;
-  title: string;
-  img_url: string;
-  description: string;
-  price: string;
-  type: ProductMeasure;
-  created_at: string;
-  category: ProductCategory;
-  is_favorite?: boolean;
 }
 
 export interface ProductCreateRequest {
@@ -224,6 +221,12 @@ export interface OrderItem {
   quantity: number;
   total_price: string;
   product: OrderItemProduct;
+}
+
+export interface OrderListQuery {
+  limit?: number;
+  page?: number;
+  status?: OrderStatus;
 }
 
 export interface Order {

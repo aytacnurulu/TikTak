@@ -17,7 +17,6 @@ interface SidebarProps {
 // items prop-u ilə verir, komponentin özü heç nə hardcode etmir.
 export function Sidebar({
   items,
-  logo = "TIK TAK ADMİN",
   onLogout,
 }: SidebarProps) {
   const navigate = useNavigate();
@@ -25,10 +24,6 @@ export function Sidebar({
 
   return (
     <div className="h-full flex flex-col bg-white">
-      <div className="px-6 py-6 text-xl font-bold tracking-wide text-gray-900">
-        {logo}
-      </div>
-
       <Menu
         mode="inline"
         selectedKeys={[location.pathname]}
