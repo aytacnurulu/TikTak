@@ -4,7 +4,6 @@ import { Sidebar } from "../SideBar";
 import { ADMIN_NAV } from "../../constants/nav.constant";
 
 const { Sider, Content } = Layout;
-
 interface AdminLayoutProps {
   logo?: string;
   onLogout?: () => void;

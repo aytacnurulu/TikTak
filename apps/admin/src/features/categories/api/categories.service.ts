@@ -1,40 +1,37 @@
 import { axiosInstance } from "../../../shared/lib/axios";
-import { CATEGORY_ENDPOINTS } from "../constants/endpoint";
+import { API } from "../../../shared/constants/api.constant";
 import type {
   Category,
   CreateCategoryPayload,
   UpdateCategoryPayload,
   ApiResponse,
 } from "../types/category.type";
+export async function getCategories() {
+  const response = await axiosInstance.get<ApiResponse<Category[]>>(
+    API.ADMIN.CATEGORY.LIST,
+  );
+  return response.data;
+}
 
-export const categoryApi = {
-  getAll: async (): Promise<Category[]> => {
-    const { data } = await axiosInstance.get<ApiResponse<Category[]>>(
-      CATEGORY_ENDPOINTS.LIST,
-    );
-    return data.data;
-  },
+export async function postCategories(payload: CreateCategoryPayload) {
+  const response = await axiosInstance.post<ApiResponse<Category>>(
+    API.ADMIN.CATEGORY.CREATE,
+    payload,
+  );
+  return response.data;
+}
 
-  create: async (payload: CreateCategoryPayload): Promise<Category> => {
-    const { data } = await axiosInstance.post<ApiResponse<Category>>(
-      CATEGORY_ENDPOINTS.CREATE,
-      payload,
-    );
-    return data.data;
-  },
+export async function putCategory(id: number, payload: UpdateCategoryPayload) {
+  const response = await axiosInstance.put<ApiResponse<Category>>(
+    API.ADMIN.CATEGORY.UPDATE(id),
+    payload,
+  );
+  return response.data;
+}
 
-  update: async (
-    id: number,
-    payload: UpdateCategoryPayload,
-  ): Promise<Category> => {
-    const { data } = await axiosInstance.put<ApiResponse<Category>>(
-      CATEGORY_ENDPOINTS.UPDATE(id),
-      payload,
-    );
-    return data.data;
-  },
-
-  remove: async (id: number): Promise<void> => {
-    await axiosInstance.delete(CATEGORY_ENDPOINTS.DELETE(id));
-  },
-};
+export async function deleteCategory(id: number) {
+  const response = await axiosInstance.delete<ApiResponse<null>>(
+    API.ADMIN.CATEGORY.DELETE(id),
+  );
+  return response.data;
+}
