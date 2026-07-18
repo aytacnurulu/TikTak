@@ -1,31 +1,68 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { categoryApi } from "../api/categories.service";
+import { axiosInstance } from "../../../shared/lib/axios";
+import { API } from "../../../shared/constants/api.constant";
 import type {
+  Category,
   CreateCategoryPayload,
   UpdateCategoryPayload,
+  ApiResponse,
 } from "../types/category.type";
+import {
+  QueryClient,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+async function getCategories() {
+  const response = await axiosInstance.get<ApiResponse<Category[]>>(
+    API.ADMIN.CATEGORY.LIST,
+  );
+  return response.data;
+}
 
-const CATEGORY_QUERY_KEY = ["categories"];
+async function postCategories(payload: CreateCategoryPayload) {
+  const response = await axiosInstance.post<ApiResponse<Category>>(
+    API.ADMIN.CATEGORY.CREATE,
+    payload,
+  );
+  return response.data;
+}
 
-export const useCategories = () => {
+async function putCategory(id: number, payload: UpdateCategoryPayload) {
+  const response = await axiosInstance.put<ApiResponse<Category>>(
+    API.ADMIN.CATEGORY.UPDATE(id),
+    payload,
+  );
+  return response.data;
+}
+
+async function deleteCategory(id: number) {
+  const response = await axiosInstance.delete<ApiResponse<null>>(
+    API.ADMIN.CATEGORY.DELETE(id),
+  );
+  return response.data;
+}
+
+export function useGetCategories() {
   return useQuery({
-    queryKey: CATEGORY_QUERY_KEY,
-    queryFn: categoryApi.getAll,
+    queryKey: ["categories"],
+    queryFn: getCategories,
   });
-};
+}
 
-export const useAddCategory = () => {
+export function useCreateCategory() {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: (payload: CreateCategoryPayload) => categoryApi.create(payload),
+    mutationFn: postCategories,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CATEGORY_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
-};
+}
 
-export const useUpdateCategory = () => {
+export function usePutCategory() {
   const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: ({
       id,
@@ -33,19 +70,22 @@ export const useUpdateCategory = () => {
     }: {
       id: number;
       payload: UpdateCategoryPayload;
-    }) => categoryApi.update(id, payload),
+    }) => putCategory(id, payload),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CATEGORY_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
-};
+}
 
-export const useDeleteCategory = () => {
+export function useDeleteCategory() {
   const queryClient = useQueryClient();
+
   return useMutation({
-    mutationFn: (id: number) => categoryApi.remove(id),
+    mutationFn: ({ id }: { id: number }) => {
+      return deleteCategory(id);
+    },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: CATEGORY_QUERY_KEY });
+      queryClient.invalidateQueries({ queryKey: ["categories"] });
     },
   });
-};
+}
