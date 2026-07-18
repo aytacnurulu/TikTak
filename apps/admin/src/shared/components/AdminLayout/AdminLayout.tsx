@@ -4,16 +4,6 @@ import { Sidebar } from "../SideBar";
 import { ADMIN_NAV } from "../../constants/nav.constant";
 
 const { Sider, Content } = Layout;
-
-const ADMIN_NAV: SidebarItem[] = [
-  { key: "/campaigns", label: "Kampaniyalar" },
-  { key: "/categories", label: "Kateqoriyalar" },
-  { key: "/products", label: "Məhsullar" },
-  { key: "/users", label: "İstifadəçilər" },
-  { key: "/orders", label: "Sifarişlər" },
-  { key: "logout", label: "Çıxış", isLogout: true },
-];
-
 interface AdminLayoutProps {
   logo?: string;
   onLogout?: () => void;
