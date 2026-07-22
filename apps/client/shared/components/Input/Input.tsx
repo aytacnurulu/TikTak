@@ -4,7 +4,7 @@ import type { InputProps, InputSize } from './Input.types';
 const sizeClasses: Record<InputSize, string> = {
   sm: 'h-9 px-3 text-sm',
   md: 'h-12 px-4 text-base',
-  lg: 'h-[60px] px-4 text-base',
+  lg: 'h-[45px] px-4 text-base',
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
