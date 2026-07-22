@@ -27,6 +27,7 @@ export function Sidebar({
       <Menu
         mode="inline"
         selectedKeys={[location.pathname]}
+        
         items={items.map((item) => ({
           key: item.key,
           label: item.label,

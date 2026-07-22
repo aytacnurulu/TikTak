@@ -1,7 +1,7 @@
 import { Layout } from "antd";
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../SideBar";
-import  Navbar  from "../Navbar/Navbar";
+import Navbar from "../Navbar/Navbar";
 import { ADMIN_NAV } from "../../constants/nav.constant";
 
 const { Sider, Content } = Layout;
@@ -12,10 +12,29 @@ interface AdminLayoutProps {
 }
 
 export default function AdminLayout({ logo, onLogout }: AdminLayoutProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const searchParams = new URLSearchParams(location.search);
+  const currentSearch = searchParams.get("search") ?? "";
+
+  function handleSearch(value: string) {
+    const nextParams = new URLSearchParams(location.search);
+    if (value.trim()) {
+      nextParams.set("search", value.trim());
+    } else {
+      nextParams.delete("search");
+    }
+
+    navigate(
+      { pathname: location.pathname, search: nextParams.toString() },
+      { replace: true },
+    );
+  }
+
   return (
     <div className="min-h-screen bg-[#F6F5FB] flex flex-col">
-      {/* Ən üstdə - bütün səhifələrdə ortaq */}
-      <Navbar />
+      <Navbar value={currentSearch} onSearch={handleSearch} />
 
       <div className="flex-1 flex items-center justify-center p-8">
         <div className="w-full max-w-[1600px] h-[calc(100vh-140px)] rounded-3xl overflow-hidden shadow-2xl relative">

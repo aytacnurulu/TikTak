@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
 import {
   ShoppingCartOutlined,
@@ -40,6 +41,8 @@ function getStatusConfig(status: string | undefined) {
 }
 
 function OrdersPage() {
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search")?.trim().toLowerCase() ?? "";
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
   const [selectedOrder, setSelectedOrder] = useState<Order | null>(null);
@@ -52,10 +55,25 @@ function OrdersPage() {
 
   const orders: Order[] = useMemo(() => data?.data ?? [], [data]);
 
+  const filteredOrders = useMemo(() => {
+    if (!search) return orders;
+    return orders.filter((order) =>
+      [order.orderNumber, order.address]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(search),
+    );
+  }, [orders, search]);
+
   const paginatedOrders = useMemo(() => {
     const start = (page - 1) * pageSize;
-    return orders.slice(start, start + pageSize);
-  }, [orders, page, pageSize]);
+    return filteredOrders.slice(start, start + pageSize);
+  }, [filteredOrders, page, pageSize]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
 
   // ---------- Handlers ----------
   function handleStatusChange(id: number, status: OrderStatus) {
@@ -225,7 +243,7 @@ function OrdersPage() {
         loading={isLoading}
         page={page}
         pageSize={pageSize}
-        total={orders.length}
+        total={filteredOrders.length}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />
