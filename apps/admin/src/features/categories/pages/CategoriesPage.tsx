@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
 import { DataTable, TableActions } from "../../../shared/components/DataTable";
 import AppButton from "../../../shared/components/AppButton";
@@ -28,6 +29,8 @@ const EMPTY_FORM: CategoryFormState = {
 };
 
 function CategoriesPage() {
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search")?.trim().toLowerCase() ?? "";
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
 
@@ -46,10 +49,25 @@ function CategoriesPage() {
 
   const categories: Category[] = data?.data ?? [];
 
+  const filteredCategories = useMemo(() => {
+    if (!search) return categories;
+    return categories.filter((category) =>
+      [category.name, category.description]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(search),
+    );
+  }, [categories, search]);
+
   const paginatedCategories = useMemo(() => {
     const start = (page - 1) * pageSize;
-    return categories.slice(start, start + pageSize);
-  }, [categories, page, pageSize]);
+    return filteredCategories.slice(start, start + pageSize);
+  }, [filteredCategories, page, pageSize]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
 
   // ---------- Handlers: create/edit modal açılışı ----------
   function handleOpenCreate() {
@@ -190,7 +208,7 @@ function CategoriesPage() {
         loading={isLoading}
         page={page}
         pageSize={pageSize}
-        total={categories.length}
+        total={filteredCategories.length}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

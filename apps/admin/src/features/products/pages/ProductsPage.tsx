@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
 import { Select } from "antd";
 import { DataTable, TableActions } from "../../../shared/components/DataTable";
@@ -43,6 +44,8 @@ const MEASURE_OPTIONS = Object.values(ProductMeasure).map((m) => ({
 }));
 
 function ProductsPage() {
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search")?.trim() ?? "";
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
 
@@ -53,7 +56,7 @@ function ProductsPage() {
   const [form, setForm] = useState<ProductFormState>(EMPTY_FORM);
 
   // ---------- Data ----------
-  const { data, isLoading } = useGetProducts({ page, limit: pageSize });
+  const { data, isLoading } = useGetProducts({ page, limit: pageSize, search });
   const { data: categoriesData } = useGetCategories();
   const { mutate: createProduct, isPending: isCreating } = useCreateProduct();
   const { mutate: updateProduct, isPending: isUpdating } = usePutProduct();
@@ -65,6 +68,10 @@ function ProductsPage() {
       ? (data as any).products
       : [];
   const total = data?.pagination?.total ?? (data as any)?.total ?? 0;
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
   const categories = categoriesData?.data ?? [];
 
   // ---------- Handlers: create/edit modal ----------

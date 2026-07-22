@@ -1,4 +1,5 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
 import { DataTable, TableActions } from "../../../shared/components/DataTable";
 import AppButton from "../../../shared/components/AppButton";
@@ -28,6 +29,8 @@ const EMPTY_FORM: CampaignFormState = {
 };
 
 function CampaignsPage() {
+  const [searchParams] = useSearchParams();
+  const search = searchParams.get("search")?.trim().toLowerCase() ?? "";
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
 
@@ -46,10 +49,25 @@ function CampaignsPage() {
 
   const campaigns: Campaign[] = data?.data ?? [];
 
+  const filteredCampaigns = useMemo(() => {
+    if (!search) return campaigns;
+    return campaigns.filter((campaign) =>
+      [campaign.title, campaign.description]
+        .filter(Boolean)
+        .join(" ")
+        .toLowerCase()
+        .includes(search),
+    );
+  }, [campaigns, search]);
+
   const paginatedCampaigns = useMemo(() => {
     const start = (page - 1) * pageSize;
-    return campaigns.slice(start, start + pageSize);
-  }, [campaigns, page, pageSize]);
+    return filteredCampaigns.slice(start, start + pageSize);
+  }, [filteredCampaigns, page, pageSize]);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search]);
 
   // ---------- Handlers: create/edit modal açılışı ----------
   function handleOpenCreate() {
@@ -190,7 +208,7 @@ function CampaignsPage() {
         loading={isLoading}
         page={page}
         pageSize={pageSize}
-        total={campaigns.length}
+        total={filteredCampaigns.length}
         onPageChange={setPage}
         onPageSizeChange={setPageSize}
       />

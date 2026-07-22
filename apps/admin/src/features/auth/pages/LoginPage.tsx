@@ -32,7 +32,7 @@ export default function LoginPage() {
             profile: res.data.profile,
           });
 
-          navigate("/dashboard", { replace: true });
+          navigate("/orders", { replace: true });
         } catch (error) {
           if (axios.isAxiosError(error)) {
             console.error("Login xətası:", error.response?.data);
