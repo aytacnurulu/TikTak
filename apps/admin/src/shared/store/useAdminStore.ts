@@ -11,7 +11,7 @@ import type {
   Order,
   Product,
   ProductListQuery,
-  OrdersListResponse,
+  OrderListResponse,
 } from "../types/admin.types";
 
 interface AdminStoreState {
@@ -20,7 +20,7 @@ interface AdminStoreState {
   products: Product[];
   users: AdminUser[];
   orders: Order[];
-  ordersPagination: OrdersListResponse["pagination"] | null;
+  ordersPagination: OrderListResponse["pagination"] | null;
   isLoadingCampaigns: boolean;
   isLoadingCategories: boolean;
   isLoadingProducts: boolean;

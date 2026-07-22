@@ -257,5 +257,5 @@ export interface UpdateOrderStatusRequest {
   status: OrderStatus;
 }
 
-export type OrderListResponse = ApiResponse<Order[]>;
+export type OrderListResponse = PaginatedResponse<Order>;
 export type OrderResponse = ApiResponse<Order>;
