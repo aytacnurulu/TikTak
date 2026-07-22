@@ -1,9 +1,9 @@
 'use client';
 
 import { useState } from 'react';
-import Button from '../Button/Button';
-import QuantitySelector from '../QuantitySelector/QuantitySelector';
-import type { Product } from '../ProductCard/ProductCard.types';
+import Button from '@/shared/components/Button';
+import { Product } from './ProductCard.types';
+import QuantitySelector from '@/shared/components/QuantitySelector';
 
 interface AddToCartControlProps {
   product: Product;
