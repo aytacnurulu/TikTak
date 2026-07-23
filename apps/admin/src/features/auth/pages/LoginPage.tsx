@@ -1,4 +1,5 @@
 // src/features/auth/pages/LoginPage.tsx
+import { useEffect } from "react";
 import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
@@ -21,8 +22,14 @@ const initialValues: AdminLoginRequest = {
 
 export default function LoginPage() {
   const navigate = useNavigate();
-  const { setAuth } = useAuthStore();
+  const { setAuth, accessToken, isAuthenticated } = useAuthStore();
   const { mutateAsync } = useAdminLogin();
+
+  useEffect(() => {
+    if (accessToken && isAuthenticated) {
+      navigate("/orders", { replace: true });
+    }
+  }, [accessToken, isAuthenticated, navigate]);
 
   const { values, handleChange, handleBlur, handleSubmit, isSubmitting } =
     useFormik<AdminLoginRequest>({

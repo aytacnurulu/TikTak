@@ -15,10 +15,7 @@ interface SidebarProps {
 
 // Sidebar tamamilə data-driven işləyir — hər layihə/panel öz linklərini
 // items prop-u ilə verir, komponentin özü heç nə hardcode etmir.
-export function Sidebar({
-  items,
-  onLogout,
-}: SidebarProps) {
+export function Sidebar({ items, onLogout }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,7 +24,6 @@ export function Sidebar({
       <Menu
         mode="inline"
         selectedKeys={[location.pathname]}
-        
         items={items.map((item) => ({
           key: item.key,
           label: item.label,
