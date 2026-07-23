@@ -6,7 +6,12 @@ import AppButton from "../../../shared/components/AppButton";
 import { AppInput, AppPassword } from "../../../shared/components/AppInput";
 import { useAuthStore } from "../../../shared/store/useAuthStore";
 import type { AdminLoginRequest } from "../../../shared/types/admin.types";
-import { useAdminLogin } from "../hooks/useAuth"
+import {
+  getApiErrorMessage,
+  notifyError,
+  notifySuccess,
+} from "../../../shared/lib/notify";
+import { useAdminLogin } from "../hooks/useAuth";
 import adminSVG from "../../../assets/images/AdminLogin.svg";
 
 const initialValues: AdminLoginRequest = {
@@ -32,11 +37,15 @@ export default function LoginPage() {
             profile: res.data.profile,
           });
 
+          notifySuccess("Uğurla daxil oldunuz");
           navigate("/orders", { replace: true });
         } catch (error) {
           if (axios.isAxiosError(error)) {
             console.error("Login xətası:", error.response?.data);
           }
+          notifyError(
+            getApiErrorMessage(error, "Telefon və ya parol yanlışdır"),
+          );
           setFieldError("password", "Telefon və ya parol yanlışdır");
         } finally {
           setSubmitting(false);
@@ -45,24 +54,23 @@ export default function LoginPage() {
     });
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
+    <div className="bg-[#FFFFFF] min-h-screen grid grid-cols-1 md:grid-cols-2">
       {/* Sol panel - branding */}
       <div className="hidden md:flex flex-col items-center justify-center relative border-r border-gray-100 px-10">
-        <span className="absolute top-8 left-8 text-lg font-bold text-gray-800">
+        <span className="absolute top-2 left-8 text-[40px] font-bold text-[#2B3043] z-10">
           TIK TAK ADMİN
         </span>
 
         <div className="relative flex flex-col items-center">
           <div className="absolute inset-0 m-auto w-64 h-64 bg-purple-50 rounded-full blur-3xl -z-10" />
-          <img src={adminSVG} alt="Admin Control Panel" className="w-72 mb-6" />
-          <p className="text-gray-400 text-sm">Admin Control Panel</p>
+          <img src={adminSVG} alt="Admin Control Panel" className=" mb-6" />
         </div>
       </div>
 
       {/* Sağ panel - form */}
       <div className="flex items-center justify-center px-6">
         <form onSubmit={handleSubmit} className="w-full max-w-sm">
-          <h2 className="text-center text-gray-700 font-medium pb-4 mb-6 border-b border-gray-100">
+          <h2 className="text-center text-[#1A1D28] font-medium pb-4 mb-6 border-b border-gray-100">
             Admin Panel
           </h2>
 
@@ -78,7 +86,7 @@ export default function LoginPage() {
           <AppPassword
             label="Parol"
             name="password"
-            placeholder="parol"
+            placeholder="*******"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}

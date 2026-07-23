@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useAuthStore } from "../store/useAuthStore";
+import { getApiErrorMessage, notifyError } from "./notify";
 
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -19,8 +20,12 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       useAuthStore.getState().logout();
+      notifyError("Sessiya bitdi. Yenidən daxil olun.");
       window.location.href = "/login";
+      return Promise.reject(error);
     }
+
+    notifyError(getApiErrorMessage(error, "Xəta baş verdi"));
     return Promise.reject(error);
   },
 );

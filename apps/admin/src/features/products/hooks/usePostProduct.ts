@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createProduct } from "../api/products.service";
+import { notifyError, notifySuccess } from "../../../shared/lib/notify";
 import type {
   ProductCreateRequest,
   ProductResponse,
@@ -12,6 +13,11 @@ export function useCreateProduct() {
     mutationFn: (payload) => createProduct(payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["products"] });
+      notifySuccess("Məhsul uğurla yaradıldı");
+    },
+    onError: (error) => {
+      console.error(error);
+      notifyError("Məhsul yaradılarkən xəta baş verdi");
     },
   });
 }
