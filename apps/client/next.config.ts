@@ -5,9 +5,16 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'https://api.sarkhanrahimli.dev',
+        hostname: 'api.sarkhanrahimli.dev', 
       },
-    ]}
+    ],
+    dangerouslyAllowSVG: true,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
+    
 };
+
+
 
 export default nextConfig;
