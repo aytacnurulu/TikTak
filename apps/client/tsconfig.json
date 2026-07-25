@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@tiktak/types": ["../../packages/types/index.ts"],
+      "@tiktak/api-client": ["../../packages/api-client/index.ts"]
     }
   },
   "include": [
