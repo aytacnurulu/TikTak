@@ -5,6 +5,7 @@ import HeroCarousel from "../components/HeroCarousel/HeroCarousel";
 import SpecialOffers from "../components/SpecialOffers/SpecialOffers";
 import StatsSection from "../components/StatsSection/StatsSection";
 import { useCampaignsQuery } from "../hooks/useLanding";
+import Footer from "@/shared/components/Footer";
 
 const LandingPage = () => {
   const { data: campaigns, isLoading } = useCampaignsQuery();
@@ -22,6 +23,7 @@ const LandingPage = () => {
       <HeroCarousel campaigns={campaigns ?? []} />
       <SpecialOffers campaigns={campaigns?.slice(2, 4) ?? []} />
       <StatsSection />
+      <Footer />
     </div>
   );
 };
