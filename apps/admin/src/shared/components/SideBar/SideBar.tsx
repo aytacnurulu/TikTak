@@ -1,6 +1,6 @@
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuthStore } from "../../store/useAuthStore"; 
+import { useAuthStore } from "../../store/useAuthStore";
 export interface SidebarItem {
   key: string;
   label: string;
@@ -19,6 +19,11 @@ export function Sidebar({ items, logo }: SidebarProps) {
 
   return (
     <div className="h-full flex flex-col bg-white">
+      {logo && (
+        <div className="p-4 flex justify-center">
+          <img src={logo} alt="Logo" className="h-8 w-auto" />
+        </div>
+      )}
       <Menu
         mode="inline"
         selectedKeys={[location.pathname]}
