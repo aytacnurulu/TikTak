@@ -44,6 +44,7 @@ export function OrderDetailModal({
       footer={null}
       closable={false}
       width={640}
+      centered
       className="[&_.ant-modal-content]:p-0! [&_.ant-modal-content]:rounded-2xl! [&_.ant-modal-content]:overflow-hidden!"
     >
       {/* Header */}
@@ -78,7 +79,7 @@ export function OrderDetailModal({
 
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600 text-lg"
+            className="text-gray-400 hover:text-gray-600 text-lg cursor-pointer"
           >
             <CloseOutlined />
           </button>
@@ -89,11 +90,15 @@ export function OrderDetailModal({
       <div className="p-6 space-y-4">
         {/* Sifariş məlumatları */}
         <div className="bg-gray-50 rounded-xl p-5">
-          <h3 className="font-semibold text-gray-900 mb-4">Sifariş Məlumatları</h3>
+          <h3 className="font-semibold text-gray-900 mb-4">
+            Sifariş Məlumatları
+          </h3>
           <div className="space-y-2 text-sm">
             <div className="flex gap-2">
               <span className="text-gray-400 w-36">Tarix :</span>
-              <span className="text-gray-700">{formatDate(order.createdAt)}</span>
+              <span className="text-gray-700">
+                {formatDate(order.createdAt)}
+              </span>
             </div>
             <div className="flex gap-2">
               <span className="text-gray-400 w-36">Çatdırılma Ünvanı :</span>
@@ -131,7 +136,8 @@ export function OrderDetailModal({
                     {item.product.title}
                   </div>
                   <div className="text-xs text-gray-400">
-                    {item.product.category.name} · {item.quantity} {item.product.type}
+                    {item.product.category.name} · {item.quantity}{" "}
+                    {item.product.type}
                   </div>
                 </div>
                 <div className="text-right">
@@ -139,7 +145,8 @@ export function OrderDetailModal({
                     {Number(item.total_price).toFixed(2)} ₼
                   </div>
                   <div className="text-xs text-gray-400">
-                    {Number(item.product.price).toFixed(2)} ₼/{item.product.type}
+                    {Number(item.product.price).toFixed(2)} ₼/
+                    {item.product.type}
                   </div>
                 </div>
               </div>

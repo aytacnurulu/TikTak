@@ -1,23 +1,21 @@
 import { Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
-
+import { useAuthStore } from "../../store/useAuthStore"; 
 export interface SidebarItem {
-  key: string; // route path, məs: '/campaigns'
-  label: string; // görünən ad, məs: 'Kampaniyalar'
-  isLogout?: boolean; // true olsa onLogout çağrılır, navigate yox
+  key: string;
+  label: string;
+  isLogout?: boolean;
 }
 
 interface SidebarProps {
   items: SidebarItem[];
   logo?: string;
-  onLogout?: () => void;
 }
 
-// Sidebar tamamilə data-driven işləyir — hər layihə/panel öz linklərini
-// items prop-u ilə verir, komponentin özü heç nə hardcode etmir.
-export function Sidebar({ items, onLogout }: SidebarProps) {
+export function Sidebar({ items, logo }: SidebarProps) {
   const navigate = useNavigate();
   const location = useLocation();
+  const logout = useAuthStore((state) => state.logout);
 
   return (
     <div className="h-full flex flex-col bg-white">
@@ -32,7 +30,8 @@ export function Sidebar({ items, onLogout }: SidebarProps) {
         onClick={({ key }) => {
           const item = items.find((i) => i.key === key);
           if (item?.isLogout) {
-            onLogout?.();
+            logout();
+            navigate("/login", { replace: true });
           } else {
             navigate(key);
           }
@@ -42,14 +41,3 @@ export function Sidebar({ items, onLogout }: SidebarProps) {
     </div>
   );
 }
-
-// İstifadə nümunəsi (hər panel/layihə üçün fərqli array verilə bilər):
-//
-// const ADMIN_NAV: SidebarItem[] = [
-//   { key: '/campaigns', label: 'Kampaniyalar' },
-//   { key: '/categories', label: 'Kateqoriyalar' },
-//   { key: '/products', label: 'Məhsullar' },
-//   { key: '/users', label: 'İstifadəçilər' },
-//   { key: '/orders', label: 'Sifarişlər' },
-//   { key: 'logout', label: 'Çıxış', isLogout: true },
-// ];

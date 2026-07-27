@@ -20,7 +20,7 @@ export function DataTable<T extends object>({
   ...props
 }: DataTableProps<T>) {
   return (
-    <div>
+    <div className="rounded-xl p-4">
       <Table<T>
         rowKey={(record: any) => record.id ?? record.key}
         pagination={false}
@@ -53,7 +53,7 @@ export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
       {onView && (
         <button
           onClick={onView}
-          className="flex items-center gap-1 text-gray-600 hover:text-gray-800"
+          className="flex items-center gap-1 text-gray-600 hover:text-gray-800 cursor-pointer"
           title="Göstər"
         >
           <FiEye size={16} />
@@ -62,7 +62,7 @@ export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
       {onEdit && (
         <button
           onClick={onEdit}
-          className="flex items-center gap-1 text-blue-500 hover:text-blue-700"
+          className="flex items-center gap-1 text-blue-500 hover:text-blue-700 cursor-pointer"
           title="Düzəlt"
         >
           <FiEdit2 size={16} />
@@ -72,7 +72,7 @@ export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
       {onDelete && (
         <button
           onClick={onDelete}
-          className="flex items-center gap-1 text-red-500 hover:text-red-700"
+          className="flex items-center gap-1 text-red-500 hover:text-red-700 cursor-pointer"
           title="Sil"
         >
           <FiTrash2 size={16} />
