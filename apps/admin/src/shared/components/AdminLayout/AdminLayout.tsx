@@ -8,10 +8,9 @@ const { Sider, Content } = Layout;
 
 interface AdminLayoutProps {
   logo?: string;
-  onLogout?: () => void;
 }
 
-export default function AdminLayout({ logo, onLogout }: AdminLayoutProps) {
+export default function AdminLayout({ logo }: AdminLayoutProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -40,7 +39,7 @@ export default function AdminLayout({ logo, onLogout }: AdminLayoutProps) {
         <div className="w-full max-w-[1600px] h-[calc(100vh-140px)] rounded-3xl overflow-hidden shadow-2xl relative">
           <Layout className="h-full">
             <Sider width={260} theme="light" className="!bg-white">
-              <Sidebar items={ADMIN_NAV} logo={logo} onLogout={onLogout} />
+              <Sidebar items={ADMIN_NAV} logo={logo}/>
             </Sider>
 
             <Layout>

@@ -1,5 +1,6 @@
 import { Modal } from "antd";
 import AppButton from "../AppButton";
+import deleteIllustration from "../../../assets/images/DeleteModatimg.svg"; // öz fayl adınızla əvəz edin
 
 interface ConfirmModalProps {
   open: boolean;
@@ -19,17 +20,41 @@ export default function ConfirmModal({
   onConfirm,
   onCancel,
   confirmText = "Təsdiqlə",
-  cancelText = "İmtina",
+  cancelText = "İndi yox",
 }: ConfirmModalProps) {
   return (
-    <Modal open={open} onCancel={onCancel} footer={null} centered width={380}>
-      <div className="flex flex-col items-center text-center py-4">
-        <p className="mb-6 font-medium text-gray-800">{title}</p>
+    <Modal
+      open={open}
+      onCancel={onCancel}
+      footer={null}
+      centered
+      width={380}
+      closable={false}
+      className="[&_.ant-modal-content]:rounded-3xl [&_.ant-modal-content]:p-8"
+    >
+      <div className="flex flex-col items-center text-center">
+        <img
+          src={deleteIllustration}
+          alt="Silmə təsdiqi"
+          className="w-40 h-40 object-contain mb-2"
+        />
+
+        <p className="mb-6 font-medium text-gray-800 text-base">{title}</p>
+
         <div className="flex gap-3 w-full">
-          <AppButton variant="primary" className="flex-1" onClick={onConfirm}>
+          <AppButton
+            variant="primary"
+            className="flex-1 !bg-[#7ED957] !border-none rounded-full h-11 font-semibold"
+            onClick={onConfirm}
+          >
             {confirmText}
           </AppButton>
-          <AppButton variant="outline" className="flex-1" onClick={onCancel}>
+
+          <AppButton
+            variant="outline"
+            className="flex-1 !text-gray-400 !border-gray-200 rounded-full h-11 font-medium"
+            onClick={onCancel}
+          >
             {cancelText}
           </AppButton>
         </div>
