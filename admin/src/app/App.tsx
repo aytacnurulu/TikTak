@@ -10,6 +10,7 @@ import ProtectedRoute from "../features/auth/components/ProtectedRoute.tsx";
 import AdminLayout from "../shared/components/AdminLayout/AdminLayout";
 
 export default function App() {
+  // comment section 
   return (
     <Routes>
       <Route path="/login" element={<LoginPage />} />
