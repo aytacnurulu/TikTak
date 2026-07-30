@@ -21,7 +21,8 @@
     "paths": {
       "@/*": ["./*"],
       "@tiktak/types": ["../../packages/types/index.ts"],
-      "@tiktak/api-client": ["../../packages/api-client/index.ts"]
+      "@tiktak/api-client": ["../../packages/api-client/index.ts"],
+      "@tiktak/constants": ["../../packages/constants/index.ts"]
     }
   },
   "include": [

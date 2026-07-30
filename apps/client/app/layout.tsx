@@ -1,8 +1,6 @@
-import Header from "@/shared/components/Header";
-import Footer from "@/shared/components/Footer";
+import "@/shared/lib/apiClient.init";
 import "./globals.css";
 import { Roboto } from "next/font/google";
-import Container from "@/shared/components/Container";
 import Providers from "./providers";
 
 const roboto = Roboto({
@@ -13,18 +11,11 @@ const roboto = Roboto({
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={roboto.className}>
-        <Providers>
-          <Header />
-          <main>
-            <Container>{children}</Container>
-          </main>
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );

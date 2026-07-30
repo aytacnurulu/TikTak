@@ -1,10 +1,10 @@
-import { forwardRef, useId } from 'react';
-import type { InputProps, InputSize } from './Input.types';
+import { forwardRef, useId } from "react";
+import type { InputProps, InputSize } from "./Input.types";
 
 const sizeClasses: Record<InputSize, string> = {
-  sm: 'h-9 px-3 text-sm',
-  md: 'h-12 px-4 text-base',
-  lg: 'h-[45px] px-4 text-base',
+  sm: "h-9 px-3 text-sm",
+  md: "h-12 px-4 text-base",
+  lg: "h-[60px] px-4 text-base",
 };
 
 const Input = forwardRef<HTMLInputElement, InputProps>(
@@ -12,29 +12,29 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     {
       label,
       error,
-      size = 'md',
+      size = "md",
       rightElement,
-      containerClassName = '',
-      className = '',
+      containerClassName = "",
+      className = "",
       id,
       ...rest
     },
-    ref
+    ref,
   ) => {
     const generatedId = useId();
     const inputId = id || generatedId;
 
     const inputClasses = [
-      'w-full rounded-[10px] bg-gray-50 border outline-none transition-colors',
-      'placeholder:text-gray-400',
-      'focus:border-primary',
-      error ? 'border-error' : 'border-gray-200',
-      rightElement ? 'pr-2' : '',
+      "w-full rounded-[10px] bg-gray-50 border outline-none transition-colors",
+      "placeholder:text-gray-400",
+      "focus:border-primary",
+      error ? "border-error" : "border-gray-200",
+      rightElement ? "pr-2" : "",
       sizeClasses[size],
       className,
     ]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     return (
       <div className={containerClassName}>
@@ -45,7 +45,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         )}
 
         {rightElement ? (
-          <div className={`flex items-center gap-2 rounded-[10px] bg-gray-50 border ${error ? 'border-error' : 'border-gray-200'} focus-within:border-primary ${sizeClasses[size]}`}>
+          <div
+            className={`flex items-center gap-2 rounded-[10px] bg-[#F6F5FB] border ${error ? "border-error" : "border-gray-200"} focus-within:border-primary ${sizeClasses[size]}`}
+          >
             <input
               ref={ref}
               id={inputId}
@@ -61,9 +63,9 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         {error && <p className="mt-1 text-sm text-error">{error}</p>}
       </div>
     );
-  }
+  },
 );
 
-Input.displayName = 'Input';
+Input.displayName = "Input";
 
 export default Input;
