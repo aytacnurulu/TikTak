@@ -1,29 +1,16 @@
-"use client";
-
-import Spinner from "@/shared/components/Spinner";
+import { landingService } from "../api/landing.service";
 import HeroCarousel from "../components/HeroCarousel/HeroCarousel";
 import SpecialOffers from "../components/SpecialOffers/SpecialOffers";
 import StatsSection from "../components/StatsSection/StatsSection";
-import { useCampaignsQuery } from "../hooks/useLanding";
-import Footer from "@/shared/components/Footer";
 
-const LandingPage = () => {
-  const { data: campaigns, isLoading } = useCampaignsQuery();
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center py-20">
-        <Spinner size="lg" color="primary" />
-      </div>
-    );
-  }
+const LandingPage = async () => {
+  const campaigns = await landingService.getCampaigns();
 
   return (
     <div className="py-8 space-y-10">
-      <HeroCarousel campaigns={campaigns ?? []} />
-      <SpecialOffers campaigns={campaigns?.slice(2, 4) ?? []} />
+      <HeroCarousel campaigns={campaigns} />
+      <SpecialOffers campaigns={campaigns.slice(2, 4)} />
       <StatsSection />
-      <Footer />
     </div>
   );
 };

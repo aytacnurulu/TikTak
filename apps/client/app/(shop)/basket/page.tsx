@@ -1,1 +1,3 @@
-export default function BasketPage() { return <></>; }
+export default function BasketPage() {
+  return <></>;
+}
