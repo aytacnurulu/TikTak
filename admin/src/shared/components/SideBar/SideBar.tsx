@@ -1,6 +1,7 @@
-import { Menu } from "antd";
+import { ConfigProvider, Menu } from "antd";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../../store/useAuthStore";
+
 export interface SidebarItem {
   key: string;
   label: string;
@@ -24,25 +25,56 @@ export function Sidebar({ items, logo }: SidebarProps) {
           <img src={logo} alt="Logo" className="h-8 w-auto" />
         </div>
       )}
-      <Menu
-        mode="inline"
-        selectedKeys={[location.pathname]}
-        items={items.map((item) => ({
-          key: item.key,
-          label: item.label,
-          danger: item.isLogout,
-        }))}
-        onClick={({ key }) => {
-          const item = items.find((i) => i.key === key);
-          if (item?.isLogout) {
-            logout();
-            navigate("/login", { replace: true });
-          } else {
-            navigate(key);
-          }
+
+      <style>{`
+        .sidebar-menu .ant-menu-item {
+          border-bottom: 2px solid #F6F5FB;
+        }
+        .sidebar-menu .ant-menu-item:last-of-type {
+          border-bottom: none;
+        }
+      `}</style>
+
+      <ConfigProvider
+        theme={{
+          components: {
+            Menu: {
+              // aktiv (seçili) item
+              itemSelectedColor: "#92D871",
+              itemSelectedBg: "transparent",
+              // hover
+              itemHoverColor: "#92D871",
+              itemHoverBg: "transparent",
+              // ölçü / padding
+              itemHeight: 52,
+              itemPaddingInline: 24,
+              itemMarginInline: 12,
+              itemMarginBlock: 6,
+              fontSize: 15,
+            },
+          },
         }}
-        className="flex-1 border-none"
-      />
+      >
+        <Menu
+          mode="inline"
+          selectedKeys={[location.pathname]}
+          items={items.map((item) => ({
+            key: item.key,
+            label: item.label,
+            danger: item.isLogout,
+          }))}
+          onClick={({ key }) => {
+            const item = items.find((i) => i.key === key);
+            if (item?.isLogout) {
+              logout();
+              navigate("/login", { replace: true });
+            } else {
+              navigate(key);
+            }
+          }}
+          className="flex-1 border-none sidebar-menu"
+        />
+      </ConfigProvider>
     </div>
   );
 }
