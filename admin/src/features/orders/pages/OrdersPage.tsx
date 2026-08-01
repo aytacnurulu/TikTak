@@ -9,7 +9,11 @@ import {
   CloseCircleOutlined,
   FieldTimeOutlined,
 } from "@ant-design/icons";
-import { DataTable, TableActions } from "../../../shared/components/DataTable";
+import {
+  DataTable,
+  TableActions,
+  TableCell,
+} from "../../../shared/components/DataTable";
 import { StatsCard } from "../components/StatsCard";
 import { OrderDetailModal } from "../components/OrderDetailModal";
 import { useGetOrders } from "../hooks/useGetOrders";
@@ -89,7 +93,9 @@ function OrdersPage() {
       key: "orderNumber",
       width: 140,
       render: (orderNumber: string) => (
-        <span className="font-medium text-gray-700">{orderNumber}</span>
+        <TableCell className="font-medium text-gray-700">
+          {orderNumber}
+        </TableCell>
       ),
     },
     {
@@ -100,12 +106,12 @@ function OrdersPage() {
       sorter: (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       render: (createdAt: string) => (
-        <span className="text-gray-600">
+        <TableCell className="text-gray-600">
           {new Date(createdAt).toLocaleDateString("az-AZ", {
             day: "2-digit",
             month: "2-digit",
           })}
-        </span>
+        </TableCell>
       ),
     },
     {
@@ -121,7 +127,7 @@ function OrdersPage() {
       ),
       onFilter: (value, record) => record.address === value,
       render: (address: string) => (
-        <span className="text-gray-600">{address}</span>
+        <TableCell className="text-gray-600">{address}</TableCell>
       ),
     },
     {
@@ -141,13 +147,17 @@ function OrdersPage() {
       sorter: (a, b) => Number(a.total) - Number(b.total),
       render: (_value, record) => (
         <div className="flex flex-col">
-          <span className="font-medium">{formatCurrency(record.total)}</span>
+          <TableCell className="font-medium">
+            {formatCurrency(record.total)}
+          </TableCell>
           {Number(record.deliveryFee) === 0 ? (
-            <span className="text-green-500 text-xs">Pulsuz çatdırılma</span>
+            <TableCell className="text-green-500 text-xs">
+              Pulsuz çatdırılma
+            </TableCell>
           ) : (
-            <span className="text-gray-400 text-xs">
+            <TableCell className="text-gray-400 text-xs">
               Çatdırılma əlavə olunur
-            </span>
+            </TableCell>
           )}
         </div>
       ),

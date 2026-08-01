@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
-import { DataTable, TableActions } from "../../../shared/components/DataTable";
+import {
+  DataTable,
+  TableActions,
+  TableCell,
+} from "../../../shared/components/DataTable";
 import AppButton from "../../../shared/components/AppButton";
 import { AppInput, AppTextArea } from "../../../shared/components/AppInput";
 import ConfirmModal from "../../../shared/components/ConfirmModal";
@@ -163,14 +167,16 @@ function CategoriesPage() {
       title: "Ad",
       dataIndex: "name",
       key: "name",
-      render: (name: string) => <span className="font-semibold">{name}</span>,
+      render: (name: string) => (
+        <TableCell className="font-semibold">{name}</TableCell>
+      ),
     },
     {
       title: "Açıqlama",
       dataIndex: "description",
       key: "description",
       render: (description: string) => (
-        <span className="text-gray-500">{description}</span>
+        <TableCell className="text-gray-500">{description}</TableCell>
       ),
     },
     {
@@ -178,7 +184,11 @@ function CategoriesPage() {
       dataIndex: "created_at",
       key: "created_at",
       width: 130,
-      render: (created_at: string) => formatDate(created_at),
+      sorter: (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+      render: (created_at: string) => (
+        <TableCell>{formatDate(created_at)}</TableCell>
+      ),
     },
     {
       title: "Əməliyyat",

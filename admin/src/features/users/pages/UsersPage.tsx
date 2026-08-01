@@ -1,7 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
-import { DataTable, TableActions } from "../../../shared/components/DataTable";
+import {
+  DataTable,
+  TableActions,
+  TableCell,
+} from "../../../shared/components/DataTable";
 import FormModal from "../../../shared/components/FormModal";
 import { useUsers } from "../hooks/useUsers";
 import type { AdminUser } from "../../../shared/types/admin.types";
@@ -77,21 +81,25 @@ function UsersPage() {
       dataIndex: "full_name",
       key: "full_name",
       render: (full_name: string) => (
-        <span className="font-semibold">{full_name}</span>
+        <TableCell className="font-semibold">{full_name}</TableCell>
       ),
     },
     {
       title: "Telefon",
       dataIndex: "phone",
       key: "phone",
-      render: (phone: string) => <span className="text-gray-600">{phone}</span>,
+      render: (phone: string) => (
+        <TableCell className="text-gray-600">{phone}</TableCell>
+      ),
     },
     {
       title: "Ünvan",
       dataIndex: "address",
       key: "address",
       render: (address: string | null) => (
-        <span className="text-gray-500">{address ?? "Qeyd olunmayıb"}</span>
+        <TableCell className="text-gray-500">
+          {address ?? "Qeyd olunmayıb"}
+        </TableCell>
       ),
     },
     {

@@ -2,6 +2,7 @@ import type { ColumnsType } from "antd/es/table";
 import {
   DataTable,
   TableActions,
+  TableCell,
 } from "../../../../shared/components/DataTable";
 import type { Product } from "../../../../shared/types/admin.types";
 
@@ -16,18 +17,32 @@ const buildColumns = (
   onDelete: (row: Product) => void,
 ): ColumnsType<Product> => [
   { title: "No", key: "id", render: (_value, _record, index) => index + 1 },
-  { title: "Başlıq", dataIndex: "title", key: "title" },
+  {
+    title: "Başlıq",
+    dataIndex: "title",
+    key: "title",
+    render: (title: string) => <TableCell>{title}</TableCell>,
+  },
   {
     title: "Kateqoriya",
     key: "category",
-    render: (_value, record) => record.category?.name ?? "-",
+    render: (_value, record) => (
+      <TableCell>{record.category?.name ?? "-"}</TableCell>
+    ),
   },
-  { title: "Növ", dataIndex: "type", key: "type" },
+  {
+    title: "Növ",
+    dataIndex: "type",
+    key: "type",
+    render: (type: Product["type"]) => <TableCell>{type}</TableCell>,
+  },
   {
     title: "Qiymət",
     dataIndex: "price",
     key: "price",
-    render: (price: string) => `${Number(price).toFixed(2)} ₼`,
+    render: (price: string) => (
+      <TableCell>{`${Number(price).toFixed(2)} ₼`}</TableCell>
+    ),
   },
   {
     title: "Əməliyyat",

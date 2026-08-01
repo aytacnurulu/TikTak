@@ -43,7 +43,7 @@ export function OrderDetailModal({
       onCancel={onClose}
       footer={null}
       closable={false}
-      width={640}
+      width={580}
       centered
       className="[&_.ant-modal-content]:p-0! [&_.ant-modal-content]:rounded-2xl! [&_.ant-modal-content]:overflow-hidden!"
     >
