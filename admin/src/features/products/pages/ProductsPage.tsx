@@ -2,7 +2,11 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
 import { Select } from "antd";
-import { DataTable, TableActions } from "../../../shared/components/DataTable";
+import {
+  DataTable,
+  TableActions,
+  TableCell,
+} from "../../../shared/components/DataTable";
 import AppButton from "../../../shared/components/AppButton";
 import { AppInput, AppTextArea } from "../../../shared/components/AppInput";
 import ConfirmModal from "../../../shared/components/ConfirmModal";
@@ -62,7 +66,7 @@ function ProductsPage() {
   const { mutate: updateProduct, isPending: isUpdating } = usePutProduct();
   const { mutate: deleteProduct, isPending: isDeleting } = useDeleteProduct();
 
-  const products = Array.isArray(data?.data)
+  const products: Product[] = Array.isArray(data?.data)
     ? data.data
     : Array.isArray((data as any)?.products)
       ? (data as any).products
@@ -163,22 +167,29 @@ function ProductsPage() {
       title: "Ad",
       dataIndex: "title",
       key: "title",
-      render: (title: string) => <span className="font-semibold">{title}</span>,
+      render: (title: string) => (
+        <TableCell className="font-semibold">{title}</TableCell>
+      ),
     },
     {
       title: "Kateqoriya",
       dataIndex: "category",
       key: "category",
       render: (category: Product["category"]) => (
-        <span className="text-gray-500">{category?.name ?? "-"}</span>
+        <TableCell className="text-gray-500">{category?.name ?? "-"}</TableCell>
       ),
     },
     {
       title: "Növ",
       dataIndex: "type",
       key: "type",
+      filters: MEASURE_OPTIONS.map(({ value, label }) => ({
+        text: label,
+        value,
+      })),
+      onFilter: (value, record) => record.type === value,
       render: (type: ProductMeasure) => (
-        <span className="text-gray-500">{type}</span>
+        <TableCell className="text-gray-500">{type}</TableCell>
       ),
     },
     {
@@ -186,8 +197,11 @@ function ProductsPage() {
       dataIndex: "price",
       key: "price",
       width: 110,
+      sorter: (a, b) => Number(a.price) - Number(b.price),
       render: (price: string) => (
-        <span className="font-semibold">{Number(price).toFixed(2)} ₼</span>
+        <TableCell className="font-semibold">
+          {Number(price).toFixed(2)} ₼
+        </TableCell>
       ),
     },
     {
@@ -195,7 +209,15 @@ function ProductsPage() {
       dataIndex: "created_at",
       key: "created_at",
       width: 130,
-      render: (created_at: string) => formatDate(created_at),
+      sorter: (a, b) =>
+        new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
+      filters: Array.from(
+        new Set(products.map((product) => formatDate(product.created_at))),
+      ).map((date) => ({ text: date, value: date })),
+      onFilter: (value, record) => formatDate(record.created_at) === value,
+      render: (created_at: string) => (
+        <TableCell>{formatDate(created_at)}</TableCell>
+      ),
     },
     {
       title: "Əməliyyat",

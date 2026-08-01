@@ -19,13 +19,20 @@ export function DataTable<T extends object>({
   onPageSizeChange,
   ...props
 }: DataTableProps<T>) {
+  const columns = props.columns?.map((column) => ({
+    ...column,
+    ellipsis: column.ellipsis ?? { showTitle: true },
+  }));
+
   return (
     <div className="rounded-xl p-4">
       <Table<T>
         rowKey={(record: any) => record.id ?? record.key}
         pagination={false}
-        className="[&_.ant-table]:!rounded-xl"
         {...props}
+        tableLayout="fixed"
+        columns={columns}
+        className="[&_.ant-table]:!rounded-xl"
       />
       <Pagination
         page={page}
@@ -35,6 +42,24 @@ export function DataTable<T extends object>({
         onPageSizeChange={onPageSizeChange}
       />
     </div>
+  );
+}
+
+interface TableCellProps {
+  children: React.ReactNode;
+  className?: string;
+}
+
+export function TableCell({ children, className = "" }: TableCellProps) {
+  const title =
+    typeof children === "string" || typeof children === "number"
+      ? String(children)
+      : undefined;
+
+  return (
+    <span className={`block truncate ${className}`} title={title}>
+      {children}
+    </span>
   );
 }
 

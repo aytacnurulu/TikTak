@@ -28,7 +28,8 @@ export default function FormModal({
       onCancel={onClose}
       footer={null}
       title={title}
-      width={480}
+      width={520}
+      centered
     >
       <div className="pt-2">
         {children}
