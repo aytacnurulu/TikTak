@@ -1,6 +1,5 @@
 // src/features/auth/pages/LoginPage.tsx
 import { useEffect } from "react";
-import axios from "axios";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
 import AppButton from "../../../shared/components/AppButton";
@@ -47,12 +46,10 @@ export default function LoginPage() {
           notifySuccess("Uğurla daxil oldunuz");
           navigate("/orders", { replace: true });
         } catch (error) {
-          if (axios.isAxiosError(error)) {
-            console.error("Login xətası:", error.response?.data);
-          }
           notifyError(
             getApiErrorMessage(error, "Telefon və ya parol yanlışdır"),
           );
+
           setFieldError("password", "Telefon və ya parol yanlışdır");
         } finally {
           setSubmitting(false);
@@ -107,6 +104,7 @@ export default function LoginPage() {
           >
             Daxil ol
           </AppButton>
+   
         </form>
       </div>
     </div>
