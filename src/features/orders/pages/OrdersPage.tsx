@@ -106,7 +106,7 @@ function OrdersPage() {
       sorter: (a, b) =>
         new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime(),
       render: (createdAt: string) => (
-        <TableCell className="text-gray-600">
+        <TableCell className="font-medium text-gray-600">
           {new Date(createdAt).toLocaleDateString("az-AZ", {
             day: "2-digit",
             month: "2-digit",
@@ -237,11 +237,11 @@ function OrdersPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center h-11 pb-4 mb-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900">Sifarişlər</h1>
       </div>
 
-      <div className="grid grid-cols-6 gap-4 mb-6">
+      <div className="grid grid-cols-6 gap-2 mb-6">
         {statsItems.map((item) => (
           <StatsCard key={item.label} {...item} />
         ))}

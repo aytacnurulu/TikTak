@@ -1,10 +1,7 @@
-import { Layout } from "antd";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../SideBar";
 import Navbar from "../Navbar/Navbar";
 import { ADMIN_NAV } from "../../constants/nav.constant";
-
-const { Sider, Content } = Layout;
 
 interface AdminLayoutProps {
   logo?: string;
@@ -35,19 +32,17 @@ export default function AdminLayout({ logo }: AdminLayoutProps) {
     <div className="min-h-screen bg-[#F6F5FB] flex flex-col">
       <Navbar value={currentSearch} onSearch={handleSearch} />
 
-      <div className="flex-1 flex items-center justify-center p-8">
-        <div className="w-full max-w-[1600px] h-[calc(100vh-140px)] rounded-3xl overflow-hidden shadow-2xl relative">
-          <Layout className="h-full">
-            <Sider width={260} theme="light" className="!bg-white">
-              <Sidebar items={ADMIN_NAV} logo={logo}/>
-            </Sider>
+      <div className="flex-1 flex justify-center px-8 pb-8 pt-20 overflow-hidden">
+        <div className="w-full max-w-[1600px] flex gap-5">
+          <aside className="w-[260px] shrink-0 bg-white rounded-[10px] shadow-sm overflow-hidden">
+            <Sidebar items={ADMIN_NAV} logo={logo} />
+          </aside>
 
-            <Layout>
-              <Content className="p-8 bg-[#f7f8fa] overflow-auto h-full">
-                <Outlet />
-              </Content>
-            </Layout>
-          </Layout>
+          <main className="flex-1 bg-white rounded-[10px] shadow-sm overflow-hidden">
+            <div className="h-full overflow-auto p-8">
+              <Outlet />
+            </div>
+          </main>
         </div>
       </div>
     </div>

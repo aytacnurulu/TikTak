@@ -47,6 +47,22 @@ const MEASURE_OPTIONS = Object.values(ProductMeasure).map((m) => ({
   label: m,
 }));
 
+// Növ sütununda göstərilən Azərbaycanca etiketlər
+const MEASURE_LABELS: Record<ProductMeasure, string> = {
+  [ProductMeasure.KG]: "Kiloqram",
+  [ProductMeasure.GR]: "Qram",
+  [ProductMeasure.LITRE]: "Litr",
+  [ProductMeasure.ML]: "Mililitr",
+  [ProductMeasure.METER]: "Metr",
+  [ProductMeasure.CM]: "Santimetr",
+  [ProductMeasure.MM]: "Millimetr",
+  [ProductMeasure.PIECE]: "Ədəd",
+  [ProductMeasure.PACKET]: "Paket",
+  [ProductMeasure.BOX]: "Qutu",
+};
+
+const MEASURE_COLORS = "text-purple-600";
+
 function ProductsPage() {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search")?.trim() ?? "";
@@ -148,7 +164,11 @@ function ProductsPage() {
       title: "Sıra",
       key: "index",
       width: 70,
-      render: (_value, _record, index) => (page - 1) * pageSize + index + 1,
+      render: (_value, _record, index) => (
+        <TableCell className="font-medium">
+          {(page - 1) * pageSize + index + 1}
+        </TableCell>
+      ),
     },
     {
       title: "Şəkil",
@@ -172,24 +192,13 @@ function ProductsPage() {
       ),
     },
     {
-      title: "Kateqoriya",
-      dataIndex: "category",
-      key: "category",
-      render: (category: Product["category"]) => (
-        <TableCell className="text-gray-500">{category?.name ?? "-"}</TableCell>
-      ),
-    },
-    {
-      title: "Növ",
-      dataIndex: "type",
-      key: "type",
-      filters: MEASURE_OPTIONS.map(({ value, label }) => ({
-        text: label,
-        value,
-      })),
-      onFilter: (value, record) => record.type === value,
-      render: (type: ProductMeasure) => (
-        <TableCell className="text-gray-500">{type}</TableCell>
+      title: "Açıqlama",
+      dataIndex: "description",
+      key: "description",
+      render: (description: string) => (
+        <TableCell className="text-gray-500 line-clamp-2">
+          {description || "-"}
+        </TableCell>
       ),
     },
     {
@@ -205,6 +214,29 @@ function ProductsPage() {
       ),
     },
     {
+      title: "Kateqoriya",
+      dataIndex: "category",
+      key: "category",
+      render: (category: Product["category"]) => (
+        <TableCell className="text-gray-500">{category?.name ?? "-"}</TableCell>
+      ),
+    },
+    {
+      title: "Növ",
+      dataIndex: "type",
+      key: "type",
+      filters: MEASURE_OPTIONS.map(({ value, label }) => ({
+        text: MEASURE_LABELS[label] ?? label,
+        value,
+      })),
+      onFilter: (value, record) => record.type === value,
+      render: (type: ProductMeasure) => (
+        <TableCell className={`font-medium ${MEASURE_COLORS}`}>
+          {MEASURE_LABELS[type] ?? type}
+        </TableCell>
+      ),
+    },
+    {
       title: "Tarix",
       dataIndex: "created_at",
       key: "created_at",
@@ -216,7 +248,7 @@ function ProductsPage() {
       ).map((date) => ({ text: date, value: date })),
       onFilter: (value, record) => formatDate(record.created_at) === value,
       render: (created_at: string) => (
-        <TableCell>{formatDate(created_at)}</TableCell>
+        <TableCell className="font-medium">{formatDate(created_at)}</TableCell>
       ),
     },
     {
@@ -234,7 +266,7 @@ function ProductsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center h-11 pb-4 mb-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900">Məhsullar</h1>
         <AppButton variant="primary" onClick={handleOpenCreate}>
           + Yeni Məhsul

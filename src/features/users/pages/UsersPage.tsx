@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
+import { FiPhone } from "react-icons/fi";
 import {
   DataTable,
   TableActions,
@@ -53,7 +54,11 @@ function UsersPage() {
       title: "Sıra",
       key: "index",
       width: 70,
-      render: (_value, _record, index) => (page - 1) * pageSize + index + 1,
+      render: (_value, _record, index) => (
+        <TableCell className="font-medium">
+          {(page - 1) * pageSize + index + 1}
+        </TableCell>
+      ),
     },
     {
       title: "Avatar",
@@ -69,7 +74,7 @@ function UsersPage() {
               className="w-12 h-12 rounded-full object-cover"
             />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-semibold">
+            <div className="w-12 h-12 rounded-full bg-[#A3D977] text-white flex items-center justify-center font-semibold">
               {getInitials(record.full_name)}
             </div>
           )}
@@ -89,7 +94,12 @@ function UsersPage() {
       dataIndex: "phone",
       key: "phone",
       render: (phone: string) => (
-        <TableCell className="text-gray-600">{phone}</TableCell>
+        <TableCell className="text-gray-600">
+          <span className="flex items-center gap-2">
+            <FiPhone size={14} className="text-gray-400" />
+            {phone}
+          </span>
+        </TableCell>
       ),
     },
     {
@@ -108,7 +118,7 @@ function UsersPage() {
       key: "role",
       width: 140,
       render: (role: AdminUser["role"]) => (
-        <span className="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+        <span className="inline-flex items-center rounded-[10px] border border-[#A3D977] bg-[#A3D977]/10 px-3 py-1 text-xs font-semibold text-[#5B8C3D]">
           {role}
         </span>
       ),
@@ -129,7 +139,7 @@ function UsersPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center h-11 pb-4 mb-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900">İstifadəçilər</h1>
       </div>
 
