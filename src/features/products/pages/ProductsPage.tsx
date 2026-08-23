@@ -47,6 +47,22 @@ const MEASURE_OPTIONS = Object.values(ProductMeasure).map((m) => ({
   label: m,
 }));
 
+// Növ sütununda göstərilən Azərbaycanca etiketlər
+const MEASURE_LABELS: Record<ProductMeasure, string> = {
+  [ProductMeasure.KG]: "Kiloqram",
+  [ProductMeasure.GR]: "Qram",
+  [ProductMeasure.LITRE]: "Litr",
+  [ProductMeasure.ML]: "Mililitr",
+  [ProductMeasure.METER]: "Metr",
+  [ProductMeasure.CM]: "Santimetr",
+  [ProductMeasure.MM]: "Millimetr",
+  [ProductMeasure.PIECE]: "Ədəd",
+  [ProductMeasure.PACKET]: "Paket",
+  [ProductMeasure.BOX]: "Qutu",
+};
+
+const MEASURE_COLORS = "text-purple-600";
+
 function ProductsPage() {
   const [searchParams] = useSearchParams();
   const search = searchParams.get("search")?.trim() ?? "";
@@ -176,6 +192,28 @@ function ProductsPage() {
       ),
     },
     {
+      title: "Açıqlama",
+      dataIndex: "description",
+      key: "description",
+      render: (description: string) => (
+        <TableCell className="text-gray-500 line-clamp-2">
+          {description || "-"}
+        </TableCell>
+      ),
+    },
+    {
+      title: "Qiymət",
+      dataIndex: "price",
+      key: "price",
+      width: 110,
+      sorter: (a, b) => Number(a.price) - Number(b.price),
+      render: (price: string) => (
+        <TableCell className="font-semibold">
+          {Number(price).toFixed(2)} ₼
+        </TableCell>
+      ),
+    },
+    {
       title: "Kateqoriya",
       dataIndex: "category",
       key: "category",
@@ -188,23 +226,13 @@ function ProductsPage() {
       dataIndex: "type",
       key: "type",
       filters: MEASURE_OPTIONS.map(({ value, label }) => ({
-        text: label,
+        text: MEASURE_LABELS[label] ?? label,
         value,
       })),
       onFilter: (value, record) => record.type === value,
       render: (type: ProductMeasure) => (
-        <TableCell className="text-gray-500">{type}</TableCell>
-      ),
-    },
-    {
-      title: "Qiymət",
-      dataIndex: "price",
-      key: "price",
-      width: 110,
-      sorter: (a, b) => Number(a.price) - Number(b.price),
-      render: (price: string) => (
-        <TableCell className="font-semibold">
-          {Number(price).toFixed(2)} ₼
+        <TableCell className={`font-medium ${MEASURE_COLORS}`}>
+          {MEASURE_LABELS[type] ?? type}
         </TableCell>
       ),
     },
