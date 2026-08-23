@@ -41,8 +41,8 @@ export default function Navbar({
 
   return (
     <div className="h-20 bg-white flex items-center justify-center px-8 shrink-0">
-      <div className="w-full max-w-[1600px] flex items-center justify-between gap-8">
-        <h1 className="text-[30px] font-bold tracking-wide text-[#1a1a2e] whitespace-nowrap">
+      <div className="w-full max-w-[1600px] grid grid-cols-3 items-center">
+        <h1 className="text-[30px] font-bold tracking-wide text-[#1a1a2e] whitespace-nowrap justify-self-start">
           {title}
         </h1>
 
@@ -53,9 +53,11 @@ export default function Navbar({
           value={localValue}
           onChange={handleChange}
           onClear={handleClear}
-          className="max-w-[520px] w-full !bg-[#F4F4FA] !border-none !rounded-full !py-3 !px-5 !shadow-none"
+          className="!w-[586px] !h-[45px] !bg-[#F4F4FA] !border-none !rounded-[10px] !shadow-none justify-self-center"
           size="large"
         />
+
+        <div />
       </div>
     </div>
   );

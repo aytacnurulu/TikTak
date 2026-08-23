@@ -237,11 +237,11 @@ function OrdersPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center mb-6">
+      <div className="flex justify-between items-center pb-4 mb-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900">Sifarişlər</h1>
       </div>
 
-      <div className="grid grid-cols-6 gap-4 mb-6">
+      <div className="grid grid-cols-6 gap-2 mb-6">
         {statsItems.map((item) => (
           <StatsCard key={item.label} {...item} />
         ))}

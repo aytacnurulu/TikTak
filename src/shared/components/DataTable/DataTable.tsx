@@ -25,7 +25,7 @@ export function DataTable<T extends object>({
   }));
 
   return (
-    <div className="rounded-xl p-4">
+    <div>
       <Table<T>
         rowKey={(record: any) => record.id ?? record.key}
         pagination={false}
