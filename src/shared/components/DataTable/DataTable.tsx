@@ -87,11 +87,11 @@ export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
       {onEdit && (
         <button
           onClick={onEdit}
-          className="flex items-center gap-1 text-blue-500 hover:text-blue-700 cursor-pointer"
+          className="flex items-center gap-1 text-gray-900 hover:text-gray-600 cursor-pointer"
           title="Düzəlt"
         >
           <FiEdit2 size={16} />
-          <span className="text-sm">Düzəlt</span>
+          <span className="text-sm font-medium">Düzəlt</span>
         </button>
       )}
       {onDelete && (
@@ -101,7 +101,7 @@ export function TableActions({ onView, onEdit, onDelete }: TableActionsProps) {
           title="Sil"
         >
           <FiTrash2 size={16} />
-          <span className="text-sm">Sil</span>
+          <span className="text-sm font-medium">Sil</span>
         </button>
       )}
     </div>

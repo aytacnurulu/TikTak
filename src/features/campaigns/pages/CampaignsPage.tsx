@@ -148,7 +148,11 @@ function CampaignsPage() {
       title: "Sıra",
       key: "index",
       width: 70,
-      render: (_value, _record, index) => (page - 1) * pageSize + index + 1,
+      render: (_value, _record, index) => (
+        <TableCell className="font-medium">
+          {(page - 1) * pageSize + index + 1}
+        </TableCell>
+      ),
     },
     {
       title: "Şəkil",
@@ -187,7 +191,7 @@ function CampaignsPage() {
       sorter: (a, b) =>
         new Date(a.created_at).getTime() - new Date(b.created_at).getTime(),
       render: (created_at: string) => (
-        <TableCell>{formatDate(created_at)}</TableCell>
+        <TableCell className="font-medium">{formatDate(created_at)}</TableCell>
       ),
     },
     {
@@ -205,7 +209,7 @@ function CampaignsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center pb-4 mb-6 border-b border-gray-100">
+      <div className="flex justify-between items-center h-11 pb-4 mb-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900">Kampaniyalar</h1>
         <AppButton variant="primary" onClick={handleOpenCreate}>
           + Yeni Kampaniya

@@ -148,7 +148,11 @@ function ProductsPage() {
       title: "Sıra",
       key: "index",
       width: 70,
-      render: (_value, _record, index) => (page - 1) * pageSize + index + 1,
+      render: (_value, _record, index) => (
+        <TableCell className="font-medium">
+          {(page - 1) * pageSize + index + 1}
+        </TableCell>
+      ),
     },
     {
       title: "Şəkil",
@@ -216,7 +220,7 @@ function ProductsPage() {
       ).map((date) => ({ text: date, value: date })),
       onFilter: (value, record) => formatDate(record.created_at) === value,
       render: (created_at: string) => (
-        <TableCell>{formatDate(created_at)}</TableCell>
+        <TableCell className="font-medium">{formatDate(created_at)}</TableCell>
       ),
     },
     {
@@ -234,7 +238,7 @@ function ProductsPage() {
 
   return (
     <div>
-      <div className="flex justify-between items-center pb-4 mb-6 border-b border-gray-100">
+      <div className="flex justify-between items-center h-11 pb-4 mb-6 border-b border-gray-100">
         <h1 className="text-2xl font-bold text-gray-900">Məhsullar</h1>
         <AppButton variant="primary" onClick={handleOpenCreate}>
           + Yeni Məhsul
