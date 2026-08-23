@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
+import { FiPhone } from "react-icons/fi";
 import {
   DataTable,
   TableActions,
@@ -73,7 +74,7 @@ function UsersPage() {
               className="w-12 h-12 rounded-full object-cover"
             />
           ) : (
-            <div className="w-12 h-12 rounded-full bg-green-500 text-white flex items-center justify-center font-semibold">
+            <div className="w-12 h-12 rounded-full bg-[#A3D977] text-white flex items-center justify-center font-semibold">
               {getInitials(record.full_name)}
             </div>
           )}
@@ -93,7 +94,12 @@ function UsersPage() {
       dataIndex: "phone",
       key: "phone",
       render: (phone: string) => (
-        <TableCell className="text-gray-600">{phone}</TableCell>
+        <TableCell className="text-gray-600">
+          <span className="flex items-center gap-2">
+            <FiPhone size={14} className="text-gray-400" />
+            {phone}
+          </span>
+        </TableCell>
       ),
     },
     {
@@ -112,7 +118,7 @@ function UsersPage() {
       key: "role",
       width: 140,
       render: (role: AdminUser["role"]) => (
-        <span className="inline-flex items-center rounded-full border border-emerald-300 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
+        <span className="inline-flex items-center rounded-[10px] border border-[#A3D977] bg-[#A3D977]/10 px-3 py-1 text-xs font-semibold text-[#5B8C3D]">
           {role}
         </span>
       ),
