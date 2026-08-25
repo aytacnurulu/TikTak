@@ -123,7 +123,7 @@ export function OrderDetailModal({
             Məhsullar ({order.items.length})
           </h3>
 
-          <div className="space-y-4">
+          <div className="max-h-64 space-y-4 overflow-y-auto pr-2">
             {order.items.map((item) => (
               <div key={item.id} className="flex items-center gap-3">
                 <img
