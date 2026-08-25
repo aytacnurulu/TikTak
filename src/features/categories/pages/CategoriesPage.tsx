@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import type { ColumnsType } from "antd/es/table";
+import { FiImage, FiUpload, FiX } from "react-icons/fi";
 import {
   DataTable,
   TableActions,
@@ -44,6 +45,8 @@ function CategoriesPage() {
   const [editingCategory, setEditingCategory] = useState<Category | null>(null);
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [form, setForm] = useState<CategoryFormState>(EMPTY_FORM);
+  const [imageError, setImageError] = useState("");
+  const imageInputRef = useRef<HTMLInputElement>(null);
 
   // ---------- Data ----------
   const { data, isLoading } = useGetCategories();
@@ -77,6 +80,7 @@ function CategoriesPage() {
   function handleOpenCreate() {
     setEditingCategory(null);
     setForm(EMPTY_FORM);
+    setImageError("");
     setIsFormOpen(true);
   }
 
@@ -87,6 +91,7 @@ function CategoriesPage() {
       description: category.description,
       img_url: category.img_url,
     });
+    setImageError("");
     setIsFormOpen(true);
   }
 
@@ -94,6 +99,37 @@ function CategoriesPage() {
     setIsFormOpen(false);
     setEditingCategory(null);
     setForm(EMPTY_FORM);
+    setImageError("");
+    if (imageInputRef.current) imageInputRef.current.value = "";
+  }
+
+  function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setImageError("Yalnız şəkil faylı seçə bilərsiniz.");
+      return;
+    }
+
+    if (file.size > 5 * 1024 * 1024) {
+      setImageError("Şəklin ölçüsü 5 MB-dan çox olmamalıdır.");
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (typeof reader.result !== "string") return;
+      setForm((current) => ({ ...current, img_url: reader.result as string }));
+      setImageError("");
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function handleRemoveImage() {
+    setForm((current) => ({ ...current, img_url: "" }));
+    setImageError("");
+    if (imageInputRef.current) imageInputRef.current.value = "";
   }
 
   function handleSubmitForm() {
@@ -232,6 +268,8 @@ function CategoriesPage() {
         title={editingCategory ? "Kateqoriyanı Düzəlt" : "Yeni Kateqoriya"}
         onClose={handleCloseForm}
         onSubmit={handleSubmitForm}
+        width={560}
+        contentClassName="max-h-[70vh] overflow-y-auto pr-1"
         submitText={
           editingCategory
             ? isUpdating
@@ -256,12 +294,60 @@ function CategoriesPage() {
           }
           placeholder="Kateqoriya açıqlaması"
         />
-        <AppInput
-          label="Şəkil URL"
-          value={form.img_url}
-          onChange={(e) => setForm((f) => ({ ...f, img_url: e.target.value }))}
-          placeholder="https://..."
-        />
+        <div className="mb-4">
+          <div className="mb-1 text-sm text-gray-500">Kateqoriya şəkli</div>
+          <div className="flex items-center gap-3 rounded-lg border border-dashed border-gray-300 bg-gray-50 p-3">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white text-gray-400">
+              {form.img_url ? (
+                <img
+                  src={form.img_url}
+                  alt="Kateqoriya önizləməsi"
+                  className="h-full w-full object-cover"
+                />
+              ) : (
+                <FiImage size={24} />
+              )}
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-sm font-medium text-gray-700">
+                {form.img_url ? "Şəkil hazırdır" : "Kompüterdən şəkil seçin"}
+              </p>
+              <p className="mt-1 text-xs text-gray-400">
+                JPG, PNG və ya WEBP · maksimum 5 MB
+              </p>
+              <div className="mt-2 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => imageInputRef.current?.click()}
+                  className="inline-flex items-center gap-1.5 rounded-md bg-gray-900 px-3 py-1.5 text-xs font-medium text-white transition hover:bg-gray-700"
+                >
+                  <FiUpload size={14} />
+                  {form.img_url ? "Dəyişdir" : "Şəkil seç"}
+                </button>
+                {form.img_url && (
+                  <button
+                    type="button"
+                    onClick={handleRemoveImage}
+                    className="inline-flex items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium text-red-500 transition hover:bg-red-50"
+                  >
+                    <FiX size={14} />
+                    Sil
+                  </button>
+                )}
+              </div>
+            </div>
+            <input
+              ref={imageInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleImageChange}
+              className="hidden"
+            />
+          </div>
+          {imageError && (
+            <p className="mt-1 text-xs text-red-500">{imageError}</p>
+          )}
+        </div>
       </FormModal>
 
       <ConfirmModal

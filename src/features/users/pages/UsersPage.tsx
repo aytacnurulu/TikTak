@@ -113,17 +113,6 @@ function UsersPage() {
       ),
     },
     {
-      title: "Rol",
-      dataIndex: "role",
-      key: "role",
-      width: 140,
-      render: (role: AdminUser["role"]) => (
-        <span className="inline-flex items-center rounded-[10px] border border-[#A3D977] bg-[#A3D977]/10 px-3 py-1 text-xs font-semibold text-[#5B8C3D]">
-          {role}
-        </span>
-      ),
-    },
-    {
       title: "Əməliyyat",
       key: "actions",
       width: 120,
@@ -162,7 +151,7 @@ function UsersPage() {
         submitText="Bağla"
       >
         {selectedUser ? (
-          <div className="space-y-4">
+          <div className="space-y-4 p-2">
             <div>
               <p className="text-sm text-gray-500">Ad Soyad</p>
               <p className="font-medium text-gray-900">
@@ -178,10 +167,6 @@ function UsersPage() {
               <p className="font-medium text-gray-900">
                 {selectedUser.address ?? "Qeyd olunmayıb"}
               </p>
-            </div>
-            <div>
-              <p className="text-sm text-gray-500">Rol</p>
-              <p className="font-medium text-gray-900">{selectedUser.role}</p>
             </div>
             <div>
               <p className="text-sm text-gray-500">Yaradılma tarixi</p>

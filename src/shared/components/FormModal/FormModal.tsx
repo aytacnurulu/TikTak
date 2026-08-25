@@ -7,6 +7,8 @@ interface FormModalProps {
   onClose: () => void;
   onSubmit: () => void;
   submitText?: string;
+  width?: number;
+  contentClassName?: string;
   children: React.ReactNode;
 }
 
@@ -20,6 +22,8 @@ export default function FormModal({
   onClose,
   onSubmit,
   submitText = "Məlumatları yarat",
+  width = 520,
+  contentClassName = "",
   children,
 }: FormModalProps) {
   return (
@@ -28,10 +32,10 @@ export default function FormModal({
       onCancel={onClose}
       footer={null}
       title={title}
-      width={520}
+      width={width}
       centered
     >
-      <div className="pt-2">
+      <div className={`pt-2 ${contentClassName}`}>
         {children}
         <AppButton variant="primary" block onClick={onSubmit}>
           {submitText}
