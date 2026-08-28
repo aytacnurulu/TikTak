@@ -16,6 +16,8 @@ import { useGetCampaigns } from "../hooks/useGetCampaigns";
 import { useCreateCampaign } from "../hooks/usePostCampaigns";
 import { useDeleteCampaign } from "../hooks/useDeleteCampaign";
 import { usePutCampaign } from "../hooks/usePutCampaign";
+import { uploadImage } from "../../../shared/lib/upload";
+import { notifyError } from "../../../shared/lib/notify";
 
 import type { Campaign } from "../../../shared/types/admin.types";
 
@@ -46,6 +48,7 @@ function CampaignsPage() {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [form, setForm] = useState<CampaignFormState>(EMPTY_FORM);
   const [imageError, setImageError] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   // ---------- Data ----------
@@ -103,7 +106,7 @@ function CampaignsPage() {
     if (imageInputRef.current) imageInputRef.current.value = "";
   }
 
-  function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -117,13 +120,19 @@ function CampaignsPage() {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result !== "string") return;
-      setForm((current) => ({ ...current, img_url: reader.result as string }));
-      setImageError("");
-    };
-    reader.readAsDataURL(file);
+    // Faylı serverə yükləyib, qaytarılan URL-i saxlayırıq.
+    // Backend `img_url` sahəsində base64 data URI deyil, həqiqi URL gözləyir.
+    setImageError("");
+    setIsUploading(true);
+    try {
+      const url = await uploadImage(file);
+      setForm((current) => ({ ...current, img_url: url }));
+    } catch {
+      notifyError("Şəkil yüklənərkən xəta baş verdi");
+      if (imageInputRef.current) imageInputRef.current.value = "";
+    } finally {
+      setIsUploading(false);
+    }
   }
 
   function handleRemoveImage() {
@@ -133,6 +142,7 @@ function CampaignsPage() {
   }
 
   function handleSubmitForm() {
+    if (isUploading) return;
     if (editingCampaign) {
       updateCampaign(
         {
@@ -271,13 +281,15 @@ function CampaignsPage() {
         width={560}
         contentClassName="max-h-[70vh] overflow-y-auto pr-1"
         submitText={
-          editingCampaign
-            ? isUpdating
-              ? "Yenilənir..."
-              : "Yadda saxla"
-            : isCreating
-              ? "Yaradılır..."
-              : "Məlumatları yarat"
+          isUploading
+            ? "Şəkil yüklənir..."
+            : editingCampaign
+              ? isUpdating
+                ? "Yenilənir..."
+                : "Yadda saxla"
+              : isCreating
+                ? "Yaradılır..."
+                : "Məlumatları yarat"
         }
       >
         <AppInput

@@ -18,6 +18,8 @@ import { useCreateProduct } from "../hooks/usePostProduct";
 import { useDeleteProduct } from "../hooks/useDeleteProduct";
 import { usePutProduct } from "../hooks/usePutProduct";
 import { useGetCategories } from "../../categories/hooks/useGetCategories";
+import { uploadImage } from "../../../shared/lib/upload";
+import { notifyError } from "../../../shared/lib/notify";
 
 import {
   ProductMeasure,
@@ -76,6 +78,7 @@ function ProductsPage() {
   const [deletingId, setDeletingId] = useState<number | null>(null);
   const [form, setForm] = useState<ProductFormState>(EMPTY_FORM);
   const [imageError, setImageError] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
 
   // ---------- Data ----------
@@ -127,7 +130,7 @@ function ProductsPage() {
     if (imageInputRef.current) imageInputRef.current.value = "";
   }
 
-  function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -141,13 +144,19 @@ function ProductsPage() {
       return;
     }
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      if (typeof reader.result !== "string") return;
-      setForm((current) => ({ ...current, img_url: reader.result as string }));
-      setImageError("");
-    };
-    reader.readAsDataURL(file);
+    // Faylı serverə yükləyib, qaytarılan URL-i saxlayırıq.
+    // Backend `img_url` sahəsində base64 data URI deyil, həqiqi URL gözləyir.
+    setImageError("");
+    setIsUploading(true);
+    try {
+      const url = await uploadImage(file);
+      setForm((current) => ({ ...current, img_url: url }));
+    } catch {
+      notifyError("Şəkil yüklənərkən xəta baş verdi");
+      if (imageInputRef.current) imageInputRef.current.value = "";
+    } finally {
+      setIsUploading(false);
+    }
   }
 
   function handleRemoveImage() {
@@ -157,6 +166,7 @@ function ProductsPage() {
   }
 
   function handleSubmitForm() {
+    if (isUploading) return;
     if (!form.category_id || !form.type) return;
 
     const payload: ProductCreateRequest = {
@@ -328,13 +338,15 @@ function ProductsPage() {
         width={560}
         contentClassName="max-h-[70vh] overflow-y-auto pr-1"
         submitText={
-          editingProduct
-            ? isUpdating
-              ? "Yenilənir..."
-              : "Yadda saxla"
-            : isCreating
-              ? "Yaradılır..."
-              : "Məlumatları yarat"
+          isUploading
+            ? "Şəkil yüklənir..."
+            : editingProduct
+              ? isUpdating
+                ? "Yenilənir..."
+                : "Yadda saxla"
+              : isCreating
+                ? "Yaradılır..."
+                : "Məlumatları yarat"
         }
       >
         <AppInput
