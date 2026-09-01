@@ -1,6 +1,8 @@
+import { Suspense } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { Sidebar } from "../SideBar";
 import Navbar from "../Navbar/Navbar";
+import PageLoader from "../PageLoader";
 import { ADMIN_NAV } from "../../constants/nav.constant";
 
 interface AdminLayoutProps {
@@ -40,7 +42,9 @@ export default function AdminLayout({ logo }: AdminLayoutProps) {
 
           <main className="flex-1 bg-white rounded-[10px] shadow-sm overflow-hidden">
             <div className="h-full overflow-auto p-8">
-              <Outlet />
+              <Suspense fallback={<PageLoader />}>
+                <Outlet />
+              </Suspense>
             </div>
           </main>
         </div>
