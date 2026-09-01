@@ -3,6 +3,5 @@
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
-  ],
-  "types": ["jest", "@testing-library/jest-dom", "node"]
+  ]
 }
