@@ -1,6 +1,6 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { useAuthStore } from "../../../shared/store/useAuthStore";
-import { UserRole } from "../../../shared/types/admin.types";
+import { useAuthStore } from "@/shared/store/useAuthStore";
+import { UserRole } from "@/shared/types/admin.types";
 
 export default function ProtectedRoute() {
   const { accessToken, isAuthenticated, profile } = useAuthStore();

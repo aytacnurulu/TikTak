@@ -1,5 +1,5 @@
 import { useAuthStore } from './useAuthStore';
-import type { AdminProfile } from '../types/admin.types';
+import type { AdminProfile } from '@/shared/types/admin.types';
 
 const mockProfile = {
   id: 1,

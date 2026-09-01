@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { putCategory } from "../api/categories.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
-import type { UpdateCategoryPayload } from "../types/category.type";
+import { putCategory } from "@/features/categories/api/categories.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
+import type { UpdateCategoryPayload } from "@/features/categories/types/category.type";
 
 export function usePutCategory() {
   const queryClient = useQueryClient();

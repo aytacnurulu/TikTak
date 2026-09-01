@@ -1,6 +1,6 @@
 import { Modal } from "antd";
-import AppButton from "../AppButton";
-import deleteIllustration from "../../../assets/images/DeleteModatimg.svg"; // öz fayl adınızla əvəz edin
+import AppButton from "@/shared/components/AppButton";
+import deleteIllustration from "@/assets/images/DeleteModatimg.svg"; // öz fayl adınızla əvəz edin
 
 interface ConfirmModalProps {
   open: boolean;

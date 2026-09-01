@@ -1,6 +1,6 @@
 import { Modal, Form, Input, InputNumber, Select } from "antd";
 import { useEffect } from "react";
-import type { Product } from "../../../../shared/types/admin.types";
+import type { Product } from "@/shared/types/admin.types";
 
 interface ProductFormModalProps {
   open: boolean;

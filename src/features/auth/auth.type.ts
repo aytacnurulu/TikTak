@@ -1,4 +1,4 @@
-import type { AdminProfile } from "../../shared/types/admin.types";
+import type { AdminProfile } from "@/shared/types/admin.types";
 
 export interface LoginPayload {
   phone: string;

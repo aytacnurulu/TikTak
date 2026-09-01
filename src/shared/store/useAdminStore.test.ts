@@ -1,9 +1,9 @@
 import { useAdminStore } from './useAdminStore';
-import { getCampaigns } from '../../features/campaigns/api/campaigns.service';
-import { getCategories } from '../../features/categories/api/categories.service';
-import { getProducts } from '../../features/products/api/products.service';
-import { getUsers } from '../../features/users/api/users.service';
-import { getOrders } from '../../features/orders/api/orders.service';
+import { getCampaigns } from '@/features/campaigns/api/campaigns.service';
+import { getCategories } from '@/features/categories/api/categories.service';
+import { getProducts } from '@/features/products/api/products.service';
+import { getUsers } from '@/features/users/api/users.service';
+import { getOrders } from '@/features/orders/api/orders.service';
 
 jest.mock('../../features/campaigns/api/campaigns.service');
 jest.mock('../../features/categories/api/categories.service');

@@ -5,9 +5,9 @@ import type {
   ProductCreateRequest,
   ProductUpdateRequest,
   ProductResponse,
-} from "../../../shared/types/admin.types";
-import { axiosInstance } from "../../../shared/lib/axios";
-import { API } from "../../../shared/constants/api.constant";
+} from "@/shared/types/admin.types";
+import { axiosInstance } from "@/shared/lib/axios";
+import { API } from "@/shared/constants/api.constant";
 
 function normalizeProductListResponse(payload: any): ProductListResponse {
   const source = payload?.data ?? payload;

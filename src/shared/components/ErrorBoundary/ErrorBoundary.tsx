@@ -1,6 +1,6 @@
 // src/shared/components/ErrorBoundary.tsx
 import { Component, type ErrorInfo, type ReactNode } from "react";
-import { notifyTelegramError } from "../../lib/telegram";
+import { notifyTelegramError } from "@/shared/lib/telegram";
 
 interface Props {
   children: ReactNode;

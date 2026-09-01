@@ -1,6 +1,6 @@
-import { axiosInstance } from "../../../shared/lib/axios";
-import { API } from "../../../shared/constants/api.constant";
-import type { OrdersQuery, OrdersListResponse, OrdersStats } from "../orders.type";
+import { axiosInstance } from "@/shared/lib/axios";
+import { API } from "@/shared/constants/api.constant";
+import type { OrdersQuery, OrdersListResponse, OrdersStats } from "@/features/orders/orders.type";
 
 export async function getOrders(query: OrdersQuery) {
   const response = await axiosInstance.get<OrdersListResponse>(API.ADMIN.ORDERS.LIST, {
