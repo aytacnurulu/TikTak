@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteCategory } from "../api/categories.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
+import { deleteCategory } from "@/features/categories/api/categories.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
 
 export function useDeleteCategory() {
   const queryClient = useQueryClient();

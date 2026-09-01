@@ -1,11 +1,11 @@
-import { axiosInstance } from "../../../shared/lib/axios";
-import { API } from "../../../shared/constants/api.constant";
+import { axiosInstance } from "@/shared/lib/axios";
+import { API } from "@/shared/constants/api.constant";
 import type {
   Campaign,
   CreateCampaignPayload,
   UpdateCampaignPayload,
   ApiResponse,
-} from "../types/campaign.type";
+} from "@/features/campaigns/types/campaign.type";
 export async function getCampaigns() {
   const response = await axiosInstance.get<ApiResponse<Campaign[]>>(
     API.ADMIN.CAMPAIGN.LIST,

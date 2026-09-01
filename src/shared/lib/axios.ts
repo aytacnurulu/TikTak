@@ -1,7 +1,7 @@
 import axios from "axios";
-import { useAuthStore } from "../store/useAuthStore";
+import { useAuthStore } from "@/shared/store/useAuthStore";
 import { getApiErrorMessage, notifyError } from "./notify";
-import { API } from "../constants/api.constant";
+import { API } from "@/shared/constants/api.constant";
 export const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
   headers: { "Content-Type": "application/json" },

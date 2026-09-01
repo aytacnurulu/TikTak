@@ -1,9 +1,9 @@
 import { create } from "zustand";
-import { getCampaigns } from "../../features/campaigns/api/campaigns.service";
-import { getCategories } from "../../features/categories/api/categories.service";
-import { getProducts } from "../../features/products/api/products.service";
-import { getUsers } from "../../features/users/api/users.service";
-import { getOrders } from "../../features/orders/api/orders.service";
+import { getCampaigns } from "@/features/campaigns/api/campaigns.service";
+import { getCategories } from "@/features/categories/api/categories.service";
+import { getProducts } from "@/features/products/api/products.service";
+import { getUsers } from "@/features/users/api/users.service";
+import { getOrders } from "@/features/orders/api/orders.service";
 import type {
   AdminUser,
   Campaign,
@@ -12,7 +12,7 @@ import type {
   Product,
   ProductListQuery,
   OrderListResponse,
-} from "../types/admin.types";
+} from "@/shared/types/admin.types";
 
 interface AdminStoreState {
   campaigns: Campaign[];

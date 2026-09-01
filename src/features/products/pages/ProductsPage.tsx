@@ -7,25 +7,25 @@ import {
   DataTable,
   TableActions,
   TableCell,
-} from "../../../shared/components/DataTable";
-import AppButton from "../../../shared/components/AppButton";
-import { AppInput, AppTextArea } from "../../../shared/components/AppInput";
-import ConfirmModal from "../../../shared/components/ConfirmModal";
-import FormModal from "../../../shared/components/FormModal";
-import formatDate from "../utils/formatDate";
-import { useGetProducts } from "../hooks/useGetProducts";
-import { useCreateProduct } from "../hooks/usePostProduct";
-import { useDeleteProduct } from "../hooks/useDeleteProduct";
-import { usePutProduct } from "../hooks/usePutProduct";
-import { useGetCategories } from "../../categories/hooks/useGetCategories";
-import { uploadImage } from "../../../shared/lib/upload";
-import { notifyError } from "../../../shared/lib/notify";
+} from "@/shared/components/DataTable";
+import AppButton from "@/shared/components/AppButton";
+import { AppInput, AppTextArea } from "@/shared/components/AppInput";
+import ConfirmModal from "@/shared/components/ConfirmModal";
+import FormModal from "@/shared/components/FormModal";
+import formatDate from "@/features/products/utils/formatDate";
+import { useGetProducts } from "@/features/products/hooks/useGetProducts";
+import { useCreateProduct } from "@/features/products/hooks/usePostProduct";
+import { useDeleteProduct } from "@/features/products/hooks/useDeleteProduct";
+import { usePutProduct } from "@/features/products/hooks/usePutProduct";
+import { useGetCategories } from "@/features/categories/hooks/useGetCategories";
+import { uploadImage } from "@/shared/lib/upload";
+import { notifyError } from "@/shared/lib/notify";
 
 import {
   ProductMeasure,
   type Product,
   type ProductCreateRequest,
-} from "../../../shared/types/admin.types";
+} from "@/shared/types/admin.types";
 
 interface ProductFormState {
   title: string;

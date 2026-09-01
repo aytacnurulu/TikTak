@@ -2,17 +2,17 @@
 import { useEffect } from "react";
 import { useFormik } from "formik";
 import { useNavigate } from "react-router-dom";
-import AppButton from "../../../shared/components/AppButton";
-import { AppInput, AppPassword } from "../../../shared/components/AppInput";
-import { useAuthStore } from "../../../shared/store/useAuthStore";
-import type { AdminLoginRequest } from "../../../shared/types/admin.types";
+import AppButton from "@/shared/components/AppButton";
+import { AppInput, AppPassword } from "@/shared/components/AppInput";
+import { useAuthStore } from "@/shared/store/useAuthStore";
+import type { AdminLoginRequest } from "@/shared/types/admin.types";
 import {
   getApiErrorMessage,
   notifyError,
   notifySuccess,
-} from "../../../shared/lib/notify";
-import { useAdminLogin } from "../hooks/useAuth";
-import adminSVG from "../../../assets/images/AdminLogin.svg";
+} from "@/shared/lib/notify";
+import { useAdminLogin } from "@/features/auth/hooks/useAuth";
+import adminSVG from "@/assets/images/AdminLogin.svg";
 
 const initialValues: AdminLoginRequest = {
   phone: "",

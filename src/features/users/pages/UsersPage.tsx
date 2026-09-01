@@ -6,10 +6,10 @@ import {
   DataTable,
   TableActions,
   TableCell,
-} from "../../../shared/components/DataTable";
-import FormModal from "../../../shared/components/FormModal";
-import { useUsers } from "../hooks/useUsers";
-import type { AdminUser } from "../../../shared/types/admin.types";
+} from "@/shared/components/DataTable";
+import FormModal from "@/shared/components/FormModal";
+import { useUsers } from "@/features/users/hooks/useUsers";
+import type { AdminUser } from "@/shared/types/admin.types";
 
 function getInitials(fullName: string) {
   const names = fullName.trim().split(" ");

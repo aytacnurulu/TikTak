@@ -1,6 +1,6 @@
 import { Modal, Select } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
-import type { Order, OrderStatus } from "../orders.type";
+import type { Order, OrderStatus } from "@/features/orders/orders.type";
 
 interface OrderDetailModalProps {
   order: Order | null;

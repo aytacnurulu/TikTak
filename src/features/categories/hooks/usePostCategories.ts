@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postCategories } from "../api/categories.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
+import { postCategories } from "@/features/categories/api/categories.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
 
 export function useCreateCategory() {
   const queryClient = useQueryClient();

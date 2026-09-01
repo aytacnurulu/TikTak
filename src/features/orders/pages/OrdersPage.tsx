@@ -13,14 +13,14 @@ import {
   DataTable,
   TableActions,
   TableCell,
-} from "../../../shared/components/DataTable";
-import { StatsCard } from "../components/StatsCard";
-import { OrderDetailModal } from "../components/OrderDetailModal";
-import { useGetOrders } from "../hooks/useGetOrders";
-import { useGetOrdersStats } from "../hooks/useGetOrdersStats";
-import { usePutOrderStatus } from "../hooks/usePutOrderStatus";
-import { StatusTag, type StatusTagProps } from "../components/StatusTag";
-import type { Order, OrderStatus } from "../orders.type";
+} from "@/shared/components/DataTable";
+import { StatsCard } from "@/features/orders/components/StatsCard";
+import { OrderDetailModal } from "@/features/orders/components/OrderDetailModal";
+import { useGetOrders } from "@/features/orders/hooks/useGetOrders";
+import { useGetOrdersStats } from "@/features/orders/hooks/useGetOrdersStats";
+import { usePutOrderStatus } from "@/features/orders/hooks/usePutOrderStatus";
+import { StatusTag, type StatusTagProps } from "@/features/orders/components/StatusTag";
+import type { Order, OrderStatus } from "@/features/orders/orders.type";
 
 const STATUS_CONFIG: Record<OrderStatus, { label: string; color: string }> = {
   PENDING: { label: "Gözləyir", color: "orange" },

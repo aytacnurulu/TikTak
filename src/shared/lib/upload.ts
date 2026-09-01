@@ -1,5 +1,5 @@
 import { axiosInstance } from "./axios";
-import { API } from "../constants/api.constant";
+import { API } from "@/shared/constants/api.constant";
 
 interface UploadResponse {
   message: string;

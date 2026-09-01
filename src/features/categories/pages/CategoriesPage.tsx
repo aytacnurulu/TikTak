@@ -6,20 +6,20 @@ import {
   DataTable,
   TableActions,
   TableCell,
-} from "../../../shared/components/DataTable";
-import AppButton from "../../../shared/components/AppButton";
-import { AppInput, AppTextArea } from "../../../shared/components/AppInput";
-import ConfirmModal from "../../../shared/components/ConfirmModal";
-import FormModal from "../../../shared/components/FormModal";
-import formatDate from "../utils/formatDate";
-import { useGetCategories } from "../hooks/useGetCategories";
-import { useCreateCategory } from "../hooks/usePostCategories";
-import { useDeleteCategory } from "../hooks/useDeleteCategory";
-import { usePutCategory } from "../hooks/usePutCategory";
-import { uploadImage } from "../../../shared/lib/upload";
-import { notifyError } from "../../../shared/lib/notify";
+} from "@/shared/components/DataTable";
+import AppButton from "@/shared/components/AppButton";
+import { AppInput, AppTextArea } from "@/shared/components/AppInput";
+import ConfirmModal from "@/shared/components/ConfirmModal";
+import FormModal from "@/shared/components/FormModal";
+import formatDate from "@/features/categories/utils/formatDate";
+import { useGetCategories } from "@/features/categories/hooks/useGetCategories";
+import { useCreateCategory } from "@/features/categories/hooks/usePostCategories";
+import { useDeleteCategory } from "@/features/categories/hooks/useDeleteCategory";
+import { usePutCategory } from "@/features/categories/hooks/usePutCategory";
+import { uploadImage } from "@/shared/lib/upload";
+import { notifyError } from "@/shared/lib/notify";
 
-import type { Category } from "../../../shared/types/admin.types";
+import type { Category } from "@/shared/types/admin.types";
 
 // Forma state-i üçün lokal tip: yaradanda da, redaktə edəndə də
 // eyni sahələr istifadə olunur (name, description, img_url)
