@@ -8,7 +8,19 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ErrorBoundary } from "./shared/components/ErrorBoundary/ErrorBoundary";
 import { notifyTelegramError } from "./shared/lib/telegram";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // 1 dəqiqə ərzində data "fresh" sayılır — sidebar-da səhifələr
+      // arasında gəzəndə cache-dən oxunur, lüzumsuz refetch getmir.
+      // Add/edit/delete-dən sonra mutation-lar `invalidateQueries`
+      // çağırdığı üçün siyahı yenə dərhal təzələnir.
+      staleTime: 60_000,
+      refetchOnWindowFocus: false,
+      retry: 1,
+    },
+  },
+});
 
 // Render bloklarında tutulmayan xətalar (event handler, sync kod)
 window.addEventListener("error", (event) => {
