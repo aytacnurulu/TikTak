@@ -1,6 +1,6 @@
 import { create } from "zustand";
-import { persist, createJSONStorage } from "zustand/middleware";
-import type { AdminProfile } from "../types/admin.types";
+import { persist } from "zustand/middleware";
+import type { AdminProfile } from "@/shared/types/admin.types";
 
 interface AuthState {
   accessToken: string | null;

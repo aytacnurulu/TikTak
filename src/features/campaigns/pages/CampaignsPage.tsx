@@ -6,20 +6,20 @@ import {
   DataTable,
   TableActions,
   TableCell,
-} from "../../../shared/components/DataTable";
-import AppButton from "../../../shared/components/AppButton";
-import { AppInput, AppTextArea } from "../../../shared/components/AppInput";
-import ConfirmModal from "../../../shared/components/ConfirmModal";
-import FormModal from "../../../shared/components/FormModal";
-import formatDate from "../utils/formatDate";
-import { useGetCampaigns } from "../hooks/useGetCampaigns";
-import { useCreateCampaign } from "../hooks/usePostCampaigns";
-import { useDeleteCampaign } from "../hooks/useDeleteCampaign";
-import { usePutCampaign } from "../hooks/usePutCampaign";
-import { uploadImage } from "../../../shared/lib/upload";
-import { notifyError } from "../../../shared/lib/notify";
+} from "@/shared/components/DataTable";
+import AppButton from "@/shared/components/AppButton";
+import { AppInput, AppTextArea } from "@/shared/components/AppInput";
+import ConfirmModal from "@/shared/components/ConfirmModal";
+import FormModal from "@/shared/components/FormModal";
+import formatDate from "@/features/campaigns/utils/formatDate";
+import { useGetCampaigns } from "@/features/campaigns/hooks/useGetCampaigns";
+import { useCreateCampaign } from "@/features/campaigns/hooks/usePostCampaigns";
+import { useDeleteCampaign } from "@/features/campaigns/hooks/useDeleteCampaign";
+import { usePutCampaign } from "@/features/campaigns/hooks/usePutCampaign";
+import { uploadImage } from "@/shared/lib/upload";
+import { notifyError } from "@/shared/lib/notify";
 
-import type { Campaign } from "../../../shared/types/admin.types";
+import type { Campaign } from "@/shared/types/admin.types";
 
 // Forma state-i üçün lokal tip: yaradanda da, redaktə edəndə də
 // eyni sahələr istifadə olunur (title, description, img_url)

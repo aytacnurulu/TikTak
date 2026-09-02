@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { updateProduct } from "../api/products.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
-import type { ProductUpdateRequest } from "../../../shared/types/admin.types";
+import { updateProduct } from "@/features/products/api/products.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
+import type { ProductUpdateRequest } from "@/shared/types/admin.types";
 
 interface UpdateProductParams {
   id: number;

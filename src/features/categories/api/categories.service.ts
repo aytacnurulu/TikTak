@@ -1,11 +1,11 @@
-import { axiosInstance } from "../../../shared/lib/axios";
-import { API } from "../../../shared/constants/api.constant";
+import { axiosInstance } from "@/shared/lib/axios";
+import { API } from "@/shared/constants/api.constant";
 import type {
   Category,
   CreateCategoryPayload,
   UpdateCategoryPayload,
   ApiResponse,
-} from "../types/category.type";
+} from "@/features/categories/types/category.type";
 export async function getCategories() {
   const response = await axiosInstance.get<ApiResponse<Category[]>>(
     API.ADMIN.CATEGORY.LIST,

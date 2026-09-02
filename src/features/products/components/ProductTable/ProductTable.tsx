@@ -3,8 +3,8 @@ import {
   DataTable,
   TableActions,
   TableCell,
-} from "../../../../shared/components/DataTable";
-import type { Product } from "../../../../shared/types/admin.types";
+} from "@/shared/components/DataTable";
+import type { Product } from "@/shared/types/admin.types";
 
 interface ProductTableProps {
   data: Product[];

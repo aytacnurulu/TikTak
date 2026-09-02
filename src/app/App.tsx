@@ -1,33 +1,33 @@
 import { Suspense } from "react";
 import { Navigate, Route, Routes } from "react-router-dom";
 
-import ProtectedRoute from "../features/auth/components/ProtectedRoute.tsx";
-import AdminLayout from "../shared/components/AdminLayout/AdminLayout";
-import PageLoader from "../shared/components/PageLoader";
-import { lazyWithRetry } from "../shared/lib/lazyWithRetry";
+import ProtectedRoute from "@/features/auth/components/ProtectedRoute.tsx";
+import AdminLayout from "@/shared/components/AdminLayout/AdminLayout";
+import PageLoader from "@/shared/components/PageLoader";
+import { lazyWithRetry } from "@/shared/lib/lazyWithRetry";
 
 const LoginPage = lazyWithRetry(
-  () => import("../features/auth/pages/LoginPage"),
+  () => import("@/features/auth/pages/LoginPage"),
   "LoginPage",
 );
 const CampaignsPage = lazyWithRetry(
-  () => import("../features/campaigns/pages/CampaignsPage"),
+  () => import("@/features/campaigns/pages/CampaignsPage"),
   "CampaignsPage",
 );
 const CategoriesPage = lazyWithRetry(
-  () => import("../features/categories/pages/CategoriesPage"),
+  () => import("@/features/categories/pages/CategoriesPage"),
   "CategoriesPage",
 );
 const OrdersPage = lazyWithRetry(
-  () => import("../features/orders/pages/OrdersPage"),
+  () => import("@/features/orders/pages/OrdersPage"),
   "OrdersPage",
 );
 const ProductsPage = lazyWithRetry(
-  () => import("../features/products/pages/ProductsPage"),
+  () => import("@/features/products/pages/ProductsPage"),
   "ProductsPage",
 );
 const UsersPage = lazyWithRetry(
-  () => import("../features/users/pages/UsersPage"),
+  () => import("@/features/users/pages/UsersPage"),
   "UsersPage",
 );
 

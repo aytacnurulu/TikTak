@@ -1,5 +1,5 @@
 import { Modal } from "antd";
-import AppButton from "../AppButton";
+import AppButton from "@/shared/components/AppButton";
 
 interface FormModalProps {
   open: boolean;

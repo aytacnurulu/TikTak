@@ -1,4 +1,4 @@
-import type { SidebarItem } from "../components/SideBar";
+import type { SidebarItem } from "@/shared/components/SideBar";
 
 export const ADMIN_NAV: SidebarItem[] = [
   { key: "/orders", label: "Sifarişlər" },

@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteProduct } from "../api/products.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
+import { deleteProduct } from "@/features/products/api/products.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
 
 export function useDeleteProduct() {
   const queryClient = useQueryClient();

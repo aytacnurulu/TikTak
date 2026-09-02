@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { postCampaigns } from "../api/campaigns.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
+import { postCampaigns } from "@/features/campaigns/api/campaigns.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
 
 export function useCreateCampaign() {
   const queryClient = useQueryClient();

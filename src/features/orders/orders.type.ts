@@ -8,4 +8,4 @@ export type {
   OrderListResponse as OrdersListResponse,
   OrderStats as OrdersStats,
   OrderListQuery as OrdersQuery,
-} from "../../shared/types/admin.types";
+} from "@/shared/types/admin.types";

@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { axiosInstance } from "../../../shared/lib/axios";
-import { API } from "../../../shared/constants/api.constant";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
-import type { OrderStatus } from "../orders.type";
+import { axiosInstance } from "@/shared/lib/axios";
+import { API } from "@/shared/constants/api.constant";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
+import type { OrderStatus } from "@/features/orders/orders.type";
 
 async function updateOrderStatus({
   id,

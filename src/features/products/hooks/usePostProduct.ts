@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createProduct } from "../api/products.service";
-import { notifyError, notifySuccess } from "../../../shared/lib/notify";
+import { createProduct } from "@/features/products/api/products.service";
+import { notifyError, notifySuccess } from "@/shared/lib/notify";
 import type {
   ProductCreateRequest,
   ProductResponse,
-} from "../../../shared/types/admin.types";
+} from "@/shared/types/admin.types";
 
 export function useCreateProduct() {
   const queryClient = useQueryClient();

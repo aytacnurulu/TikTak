@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
-import { Sidebar } from "../SideBar";
-import Navbar from "../Navbar/Navbar";
-import PageLoader from "../PageLoader";
-import { ADMIN_NAV } from "../../constants/nav.constant";
+import { Sidebar } from "@/shared/components/SideBar";
+import Navbar from "@/shared/components/Navbar/Navbar";
+import PageLoader from "@/shared/components/PageLoader";
+import { ADMIN_NAV } from "@/shared/constants/nav.constant";
 
 interface AdminLayoutProps {
   logo?: string;
