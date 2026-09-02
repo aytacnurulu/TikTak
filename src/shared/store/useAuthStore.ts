@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import type { AdminProfile } from "../types/admin.types";
 
 interface AuthState {
@@ -32,6 +32,12 @@ export const useAuthStore = create<AuthState>()(
           isAuthenticated: false,
         }),
     }),
-    { name: "auth-storage" },
+    {
+      name: "auth-storage",
+      // Paylaşılan kompüterdə tab/brauzer bağlananda sessiya bitsin deyə
+      // localStorage yerinə sessionStorage saxlanılır: başqası eyni maşında
+      // panelə avtomatik daxil olmuş sessiya ilə girə bilməsin.
+      storage: createJSONStorage(() => sessionStorage),
+    },
   ),
 );

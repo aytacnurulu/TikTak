@@ -73,7 +73,11 @@ export default function LoginPage() {
 
       {/* Sağ panel - form */}
       <div className="flex items-center justify-center px-6">
-        <form onSubmit={handleSubmit} className="w-full max-w-sm">
+        <form
+          onSubmit={handleSubmit}
+          autoComplete="off"
+          className="w-full max-w-sm"
+        >
           <h2 className="text-center text-[#1A1D28] font-medium pb-4 mb-6 border-b border-gray-100">
             Admin Panel
           </h2>
@@ -82,6 +86,7 @@ export default function LoginPage() {
             label="Telefon"
             name="phone"
             placeholder="telefon"
+            autoComplete="off"
             value={values.phone}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -91,6 +96,7 @@ export default function LoginPage() {
             label="Parol"
             name="password"
             placeholder="*******"
+            autoComplete="new-password"
             value={values.password}
             onChange={handleChange}
             onBlur={handleBlur}
